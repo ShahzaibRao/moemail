@@ -55,7 +55,7 @@ export function ThreeColumnLayout() {
       <div className="hidden lg:grid grid-cols-12 gap-4 h-full min-h-0">
         <div className={cn("col-span-3", columnClass)}>
           <div className={headerClass}>
-            <h2 className={titleClass}>我的邮箱</h2>
+            <h2 className={titleClass}>My email address</h2>
           </div>
           <div className="flex-1 overflow-auto">
             <EmailList
@@ -88,7 +88,7 @@ export function ThreeColumnLayout() {
                   )}
                 </div>
               ) : (
-                "选择邮箱查看消息"
+                "Select a mailbox to read emails"
               )}
             </h2>
           </div>
@@ -107,7 +107,7 @@ export function ThreeColumnLayout() {
         <div className={cn("col-span-5", columnClass)}>
           <div className={headerClass}>
             <h2 className={titleClass}>
-              {selectedMessageId ? "邮件内容" : "选择邮件查看详情"}
+              {selectedMessageId ? "Email Content" : "Select an email to view details"}
             </h2>
           </div>
           {selectedEmail && selectedMessageId && (
@@ -129,7 +129,7 @@ export function ThreeColumnLayout() {
           {mobileView === "list" && (
             <>
               <div className={headerClass}>
-                <h2 className={titleClass}>我的邮箱</h2>
+                <h2 className={titleClass}>My Email</h2>
               </div>
               <div className="flex-1 overflow-auto">
                 <EmailList
@@ -151,7 +151,7 @@ export function ThreeColumnLayout() {
                   }}
                   className="text-sm text-primary shrink-0"
                 >
-                  ← 返回邮箱列表
+                  ← Back to Mailbox List
                 </button>
                 <div className="flex-1 flex justify-between items-center gap-2 min-w-0">
                   <div className="flex items-center gap-2">
@@ -187,9 +187,9 @@ export function ThreeColumnLayout() {
                   onClick={() => setSelectedMessageId(null)}
                   className="text-sm text-primary"
                 >
-                  ← 返回消息列表
+                  ← Back to Messages
                 </button>
-                <span className="text-sm font-medium">邮件内容</span>
+                <span className="text-sm font-medium">Email Content</span>
               </div>
               <div className="flex-1 overflow-auto">
                 <MessageView
