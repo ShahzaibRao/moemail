@@ -42,7 +42,7 @@ export function WebhookConfig() {
           <Loader2 className="w-6 h-6 text-primary animate-spin" />
         </div>
         <div>
-          <p className="text-sm text-muted-foreground">加载中...</p>
+          <p className="text-sm text-muted-foreground">Loading...</p>
         </div>
       </div>
     )
@@ -63,13 +63,13 @@ export function WebhookConfig() {
       if (!res.ok) throw new Error("Failed to save")
 
       toast({
-        title: "保存成功",
-        description: "Webhook 配置已更新"
+        title: "Save Successful",
+        description: "Webhook configuration has been updated"
       })
     } catch (_error) {
       toast({
-        title: "保存失败",
-        description: "请稍后重试",
+        title: "Save Failed",
+        description: "Please try again later",
         variant: "destructive"
       })
     } finally {
@@ -91,13 +91,13 @@ export function WebhookConfig() {
       if (!res.ok) throw new Error("测试失败")
 
       toast({
-        title: "测试成功",
-        description: "Webhook 调用成功,请检查目标服务器是否收到请求"
+        title: "Test Successful",
+        description: "Webhook call succeeded. Please check if the target server received the request"
       })
     } catch (_error) {
       toast({
-        title: "测试失败",
-        description: "请检查 URL 是否正确且可访问",
+        title: "Test Failed",
+        description: "Please check if the URL is correct and accessible",
         variant: "destructive"
       })
     } finally {
@@ -111,7 +111,7 @@ export function WebhookConfig() {
         <div className="space-y-0.5">
           <Label>启用 Webhook</Label>
           <div className="text-sm text-muted-foreground">
-            当收到新邮件时通知指定的 URL
+            Notify the specified URL when a new email is received
           </div>
         </div>
         <Switch
@@ -137,7 +137,7 @@ export function WebhookConfig() {
                 {loading ? (
                   <Loader2 className="w-4 h-4 animate-spin" />
                 ) : (
-                  "保存"
+                  "Save"
                 )}
               </Button>
               <TooltipProvider>
@@ -157,13 +157,13 @@ export function WebhookConfig() {
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>发送测试消息到此 Webhook</p>
+                    <p>Send a test message to this Webhook</p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
             </div>
             <p className="text-xs text-muted-foreground">
-              我们会向此 URL 发送 POST 请求,包含新邮件的相关信息
+              We will send a POST request to this URL containing details about the new email
             </p>
           </div>
 
@@ -174,26 +174,26 @@ export function WebhookConfig() {
               onClick={() => setShowDocs(!showDocs)}
             >
               {showDocs ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-              查看数据格式说明
+              View Data Format Description
             </button>
 
             {showDocs && (
               <div className="rounded-md bg-muted p-4 text-sm space-y-3">
-                <p>当收到新邮件时，我们会向配置的 URL 发送 POST 请求，请求头包含:</p>
+                <p>When a new email is received, a POST request will be sent to the configured URL with the following headers:</p>
                 <pre className="bg-background p-2 rounded text-xs">
                   Content-Type: application/json{'\n'}
                   X-Webhook-Event: new_message
                 </pre>
 
-                <p>请求体示例:</p>
+                <p>Example request body:</p>
                 <pre className="bg-background p-2 rounded text-xs overflow-auto">
                   {`{
   "emailId": "email-uuid",
   "messageId": "message-uuid",
   "fromAddress": "sender@example.com",
-  "subject": "邮件主题",
-  "content": "邮件文本内容",
-  "html": "邮件HTML内容",
+  "subject": "Email Subject",
+  "content": "Plain text email content",
+  "html": "HTML email content",
   "receivedAt": "2024-01-01T12:00:00.000Z",
   "toAddress": "your-email@${window.location.host}"
 }`}
