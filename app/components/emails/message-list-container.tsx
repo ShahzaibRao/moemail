@@ -33,11 +33,11 @@ export function MessageListContainer({ email, onMessageSelect, selectedMessageId
             <SlidingTabsList>
               <SlidingTabsTrigger value="received">
                 <Inbox className="h-4 w-4" />
-                收件箱
+                Inbox
               </SlidingTabsTrigger>
               <SlidingTabsTrigger value="sent">
                 <Send className="h-4 w-4" />
-                已发送
+                Sent
               </SlidingTabsTrigger>
             </SlidingTabsList>
           </div>
