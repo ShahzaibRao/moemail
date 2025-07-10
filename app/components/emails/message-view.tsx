@@ -42,13 +42,13 @@ export function MessageView({ emailId, messageId, messageType = 'received' }: Me
         setLoading(true)
         setError(null)
         
-        const url = `/api/emails/${emailId}/${messageId}${messageType === 'sent' ? '?type=sent' : ''}`
+        const url = `/api/emails/${emailId}/${messageId}${messageType === 'sent' ? '?type=sent' : ''}`;
         
         const response = await fetch(url)
         
         if (!response.ok) {
           const errorData = await response.json()
-          const errorMessage = (errorData as { error?: string }).error || 'Failed to load email details'
+          const errorMessage = (errorData as { error?: string }).error || 'Failed to fetch message details'
           setError(errorMessage)
           toast({
             title: "Error",
@@ -64,7 +64,7 @@ export function MessageView({ emailId, messageId, messageType = 'received' }: Me
           setViewMode("text")
         }
       } catch (error) {
-        const errorMessage = "Network error, please try again later"
+        const errorMessage = "Network error. Please try again later."
         setError(errorMessage)
         toast({
           title: "Error", 
@@ -145,7 +145,6 @@ export function MessageView({ emailId, messageId, messageType = 'received' }: Me
         `)
         doc.close()
 
-        // Update height to fill container
         const updateHeight = () => {
           const container = iframe.parentElement
           if (container) {
@@ -156,11 +155,9 @@ export function MessageView({ emailId, messageId, messageType = 'received' }: Me
         updateHeight()
         window.addEventListener('resize', updateHeight)
 
-        // Listen for content changes
         const resizeObserver = new ResizeObserver(updateHeight)
         resizeObserver.observe(doc.body)
 
-        // Listen for image load
         doc.querySelectorAll('img').forEach((img: HTMLImageElement) => {
           img.onload = updateHeight
         })
@@ -173,7 +170,6 @@ export function MessageView({ emailId, messageId, messageType = 'received' }: Me
     }
   }
 
-  // Listen to theme and content changes
   useEffect(() => {
     updateIframeContent()
   }, [message?.html, viewMode, theme])
@@ -182,7 +178,7 @@ export function MessageView({ emailId, messageId, messageType = 'received' }: Me
     return (
       <div className="flex items-center justify-center h-32">
         <Loader2 className="w-5 h-5 animate-spin text-primary/60" />
-        <span className="ml-2 text-sm text-gray-500">Loading email details...</span>
+        <span className="ml-2 text-sm text-gray-500">Loading message...</span>
       </div>
     )
   }
@@ -231,7 +227,7 @@ export function MessageView({ emailId, messageId, messageType = 'received' }: Me
                 htmlFor="html" 
                 className="text-xs cursor-pointer"
               >
-                HTML format
+                HTML Format
               </Label>
             </div>
             <div className="flex items-center space-x-2">
@@ -240,7 +236,7 @@ export function MessageView({ emailId, messageId, messageType = 'received' }: Me
                 htmlFor="text" 
                 className="text-xs cursor-pointer"
               >
-                Plain text format
+                Plain Text Format
               </Label>
             </div>
           </RadioGroup>

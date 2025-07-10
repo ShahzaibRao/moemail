@@ -37,20 +37,20 @@ export function LoginForm() {
 
   const validateLoginForm = () => {
     const newErrors: FormErrors = {}
-    if (!username) newErrors.username = "Please enter your username"
-    if (!password) newErrors.password = "Please enter your password"
+    if (!username) newErrors.username = "Please enter a username"
+    if (!password) newErrors.password = "Please enter a password"
     if (username.includes('@')) newErrors.username = "Username cannot contain the @ symbol"
-    if (password && password.length < 8) newErrors.password = "Password must be at least 8 characters long"
+    if (password && password.length < 8) newErrors.password = "Password must be at least 8 characters"
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
   }
 
   const validateRegisterForm = () => {
     const newErrors: FormErrors = {}
-    if (!username) newErrors.username = "Please enter your username"
-    if (!password) newErrors.password = "Please enter your password"
+    if (!username) newErrors.username = "Please enter a username"
+    if (!password) newErrors.password = "Please enter a password"
     if (username.includes('@')) newErrors.username = "Username cannot contain the @ symbol"
-    if (password && password.length < 8) newErrors.password = "Password must be at least 8 characters long"
+    if (password && password.length < 8) newErrors.password = "Password must be at least 8 characters"
     if (!confirmPassword) newErrors.confirmPassword = "Please confirm your password"
     if (password !== confirmPassword) newErrors.confirmPassword = "Passwords do not match"
     setErrors(newErrors)
@@ -112,7 +112,7 @@ export function LoginForm() {
         return
       }
 
-      // Automatically login after successful registration
+      // Auto-login after registration
       const result = await signIn("credentials", {
         username,
         password,
@@ -122,7 +122,7 @@ export function LoginForm() {
       if (result?.error) {
         toast({
           title: "Login Failed",
-          description: "Automatic login failed, please log in manually",
+          description: "Auto-login failed. Please log in manually.",
           variant: "destructive",
         })
         setLoading(false)
@@ -235,7 +235,7 @@ export function LoginForm() {
                   </div>
                   <div className="relative flex justify-center text-xs uppercase">
                     <span className="bg-background px-2 text-muted-foreground">
-                      Or
+                      or
                     </span>
                   </div>
                 </div>

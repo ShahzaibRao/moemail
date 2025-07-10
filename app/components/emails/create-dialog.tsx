@@ -3,13 +3,28 @@
 import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 import { Copy, Plus, RefreshCw } from "lucide-react"
 import { useToast } from "@/components/ui/use-toast"
 import { nanoid } from "nanoid"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import {
+  RadioGroup,
+  RadioGroupItem,
+} from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { EXPIRY_OPTIONS } from "@/types/email"
 import { useCopy } from "@/hooks/use-copy"
 import { useConfig } from "@/hooks/use-config"
@@ -19,7 +34,7 @@ interface CreateDialogProps {
 }
 
 export function CreateDialog({ onEmailCreated }: CreateDialogProps) {
-  const { config } = useConfig()  
+  const { config } = useConfig()
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const [emailName, setEmailName] = useState("")
@@ -39,7 +54,7 @@ export function CreateDialog({ onEmailCreated }: CreateDialogProps) {
       toast({
         title: "Error",
         description: "Please enter an email name",
-        variant: "destructive"
+        variant: "destructive",
       })
       return
     }
@@ -52,8 +67,8 @@ export function CreateDialog({ onEmailCreated }: CreateDialogProps) {
         body: JSON.stringify({
           name: emailName,
           domain: currentDomain,
-          expiryTime: parseInt(expiryTime)
-        })
+          expiryTime: parseInt(expiryTime),
+        }),
       })
 
       if (!response.ok) {
@@ -61,14 +76,14 @@ export function CreateDialog({ onEmailCreated }: CreateDialogProps) {
         toast({
           title: "Error",
           description: (data as { error: string }).error,
-          variant: "destructive"
+          variant: "destructive",
         })
         return
       }
 
       toast({
         title: "Success",
-        description: "New temporary email has been created"
+        description: "Temporary email created successfully",
       })
       onEmailCreated()
       setOpen(false)
@@ -77,7 +92,7 @@ export function CreateDialog({ onEmailCreated }: CreateDialogProps) {
       toast({
         title: "Error",
         description: "Failed to create email",
-        variant: "destructive"
+        variant: "destructive",
       })
     } finally {
       setLoading(false)
@@ -100,7 +115,7 @@ export function CreateDialog({ onEmailCreated }: CreateDialogProps) {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Create New Temporary Email</DialogTitle>
+          <DialogTitle>Create a New Temporary Email</DialogTitle>
         </DialogHeader>
         <div className="space-y-4 py-4">
           <div className="flex gap-2">
@@ -116,7 +131,7 @@ export function CreateDialog({ onEmailCreated }: CreateDialogProps) {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {config?.emailDomainsArray?.map(d => (
+                  {config?.emailDomainsArray?.map((d) => (
                     <SelectItem key={d} value={d}>@{d}</SelectItem>
                   ))}
                 </SelectContent>

@@ -55,7 +55,7 @@ export function ThreeColumnLayout() {
       <div className="hidden lg:grid grid-cols-12 gap-4 h-full min-h-0">
         <div className={cn("col-span-3", columnClass)}>
           <div className={headerClass}>
-            <h2 className={titleClass}>My Emails</h2>
+            <h2 className={titleClass}>My Mailboxes</h2>
           </div>
           <div className="flex-1 overflow-auto">
             <EmailList
@@ -107,7 +107,7 @@ export function ThreeColumnLayout() {
         <div className={cn("col-span-5", columnClass)}>
           <div className={headerClass}>
             <h2 className={titleClass}>
-              {selectedMessageId ? "Message Content" : "Select a message to view details"}
+              {selectedMessageId ? "Email Content" : "Select a message to view details"}
             </h2>
           </div>
           {selectedEmail && selectedMessageId && (
@@ -129,3 +129,80 @@ export function ThreeColumnLayout() {
           {mobileView === "list" && (
             <>
               <div className={headerClass}>
+                <h2 className={titleClass}>My Mailboxes</h2>
+              </div>
+              <div className="flex-1 overflow-auto">
+                <EmailList
+                  onEmailSelect={(email) => {
+                    setSelectedEmail(email)
+                  }}
+                  selectedEmailId={selectedEmail?.id}
+                />
+              </div>
+            </>
+          )}
+
+          {mobileView === "emails" && selectedEmail && (
+            <div className="h-full flex flex-col">
+              <div className={cn(headerClass, "gap-2")}>
+                <button
+                  onClick={() => {
+                    setSelectedEmail(null)
+                  }}
+                  className="text-sm text-primary shrink-0"
+                >
+                  ← Back to mailbox list
+                </button>
+                <div className="flex-1 flex justify-between items-center gap-2 min-w-0">
+                  <div className="flex items-center gap-2">
+                    <span className="truncate min-w-0 flex-1 text-right">{selectedEmail.address}</span>
+                    <div className="shrink-0 cursor-pointer text-primary" onClick={copyEmailAddress}>
+                      <Copy className="size-4" />
+                    </div>
+                  </div>
+                  {canSendEmails && (
+                    <SendDialog 
+                      emailId={selectedEmail.id} 
+                      fromAddress={selectedEmail.address}
+                      onSendSuccess={handleSendSuccess}
+                    />
+                  )}
+                </div>
+              </div>
+              <div className="flex-1 overflow-auto">
+                <MessageListContainer
+                  email={selectedEmail}
+                  onMessageSelect={handleMessageSelect}
+                  selectedMessageId={selectedMessageId}
+                  refreshTrigger={refreshTrigger}
+                />
+              </div>
+            </div>
+          )}
+
+          {mobileView === "message" && selectedEmail && selectedMessageId && (
+            <div className="h-full flex flex-col">
+              <div className={headerClass}>
+                <button
+                  onClick={() => setSelectedMessageId(null)}
+                  className="text-sm text-primary"
+                >
+                  ← Back to message list
+                </button>
+                <span className="text-sm font-medium">Email Content</span>
+              </div>
+              <div className="flex-1 overflow-auto">
+                <MessageView
+                  emailId={selectedEmail.id}
+                  messageId={selectedMessageId}
+                  messageType={selectedMessageType}
+                  onClose={() => setSelectedMessageId(null)}
+                />
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}

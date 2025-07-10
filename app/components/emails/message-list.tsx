@@ -53,12 +53,11 @@ export function MessageList({ email, messageType, onMessageSelect, selectedMessa
   const [nextCursor, setNextCursor] = useState<string | null>(null)
   const [loadingMore, setLoadingMore] = useState(false)
   const pollTimeoutRef = useRef<Timer>(null)
-  const messagesRef = useRef<Message[]>([]) // Add ref to track the latest message list
+  const messagesRef = useRef<Message[]>([])
   const [total, setTotal] = useState(0)
   const [messageToDelete, setMessageToDelete] = useState<Message | null>(null)
   const { toast } = useToast()
 
-  // Update ref when messages change
   useEffect(() => {
     messagesRef.current = messages
   }, [messages])
@@ -161,7 +160,7 @@ export function MessageList({ email, messageType, onMessageSelect, selectedMessa
 
       toast({
         title: "Success",
-        description: "Email deleted successfully"
+        description: "Message deleted"
       })
 
       if (selectedMessageId === message.id) {
@@ -170,7 +169,7 @@ export function MessageList({ email, messageType, onMessageSelect, selectedMessa
     } catch {
       toast({
         title: "Error",
-        description: "Failed to delete email",
+        description: "Failed to delete message",
         variant: "destructive"
       })
     } finally {
@@ -179,18 +178,13 @@ export function MessageList({ email, messageType, onMessageSelect, selectedMessa
   }
 
   useEffect(() => {
-    if (!email.id) {
-      return
-    }
+    if (!email.id) return
     setLoading(true)
     setNextCursor(null)
     fetchMessages()
     startPolling()
 
-    return () => {
-      stopPolling()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    return () => stopPolling()
   }, [email.id])
 
   useEffect(() => {
@@ -198,9 +192,100 @@ export function MessageList({ email, messageType, onMessageSelect, selectedMessa
       setRefreshing(true)
       fetchMessages()
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refreshTrigger])
 
   return (
     <>
-      <div className="
+      <div className="h-full flex flex-col">
+        <div className="p-2 flex justify-between items-center border-b border-primary/20">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={handleRefresh}
+            disabled={refreshing}
+            className={cn("h-8 w-8", refreshing && "animate-spin")}
+          >
+            <RefreshCw className="h-4 w-4" />
+          </Button>
+          <span className="text-xs text-gray-500">
+            {total > 0 ? `${total} messages` : "No messages"}
+          </span>
+        </div>
+
+        <div className="flex-1 overflow-auto" onScroll={handleScroll}>
+          {loading ? (
+            <div className="p-4 text-center text-sm text-gray-500">Loading...</div>
+          ) : messages.length > 0 ? (
+            <div className="divide-y divide-primary/10">
+              {messages.map(message => (
+                <div
+                  key={message.id}
+                  onClick={() => onMessageSelect(message.id, messageType)}
+                  className={cn(
+                    "p-3 hover:bg-primary/5 cursor-pointer group",
+                    selectedMessageId === message.id && "bg-primary/10"
+                  )}
+                >
+                  <div className="flex items-start gap-3">
+                    <Mail className="w-4 h-4 text-primary/60 mt-1" />
+                    <div className="min-w-0 flex-1">
+                      <p className="font-medium text-sm truncate">{message.subject}</p>
+                      <div className="mt-1 flex items-center gap-2 text-xs text-gray-500">
+                        <span className="truncate">
+                          {message.from_address || message.to_address || ''}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Calendar className="w-3 h-3" />
+                          {new Date(message.received_at || message.sent_at || 0).toLocaleString()}
+                        </span>
+                      </div>
+                    </div>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="opacity-0 group-hover:opacity-100 h-8 w-8"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        setMessageToDelete(message)
+                      }}
+                    >
+                      <Trash2 className="h-4 w-4 text-destructive" />
+                    </Button>
+                  </div>
+                </div>
+              ))}
+              {loadingMore && (
+                <div className="text-center text-sm text-gray-500 py-2">
+                  Loading more...
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="p-4 text-center text-sm text-gray-500">
+              {messageType === 'sent' ? 'No sent messages' : 'No received messages'}
+            </div>
+          )}
+        </div>
+      </div>
+      <AlertDialog open={!!messageToDelete} onOpenChange={() => setMessageToDelete(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Confirm deletion</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to delete message {messageToDelete?.subject}?
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              className="bg-destructive hover:bg-destructive/90"
+              onClick={() => messageToDelete && handleDelete(messageToDelete)}
+            >
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
+  )
+}

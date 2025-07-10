@@ -39,7 +39,7 @@ export function SignButton({ size = "default" }: SignButtonProps) {
         {session.user.image && (
           <Image
             src={session.user.image}
-            alt={session.user.name || "User avatar"}
+            alt={session.user.name || "User Avatar"}
             width={24}
             height={24}
             className="rounded-full"

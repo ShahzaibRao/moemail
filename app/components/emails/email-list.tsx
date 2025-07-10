@@ -62,7 +62,7 @@ export function EmailList({ onEmailSelect, selectedEmailId }: EmailListProps) {
       }
       const response = await fetch(url)
       const data = await response.json() as EmailResponse
-      
+
       if (!cursor) {
         const newEmails = data.emails
         const oldEmails = emails
@@ -82,6 +82,7 @@ export function EmailList({ onEmailSelect, selectedEmailId }: EmailListProps) {
         setTotal(data.total)
         return
       }
+
       setEmails(prev => [...prev, ...data.emails])
       setNextCursor(data.nextCursor)
       setTotal(data.total)
@@ -137,9 +138,9 @@ export function EmailList({ onEmailSelect, selectedEmailId }: EmailListProps) {
 
       toast({
         title: "Success",
-        description: "Email deleted"
+        description: "Email has been deleted"
       })
-      
+
       if (selectedEmailId === email.id) {
         onEmailSelect(null)
       }
@@ -180,7 +181,7 @@ export function EmailList({ onEmailSelect, selectedEmailId }: EmailListProps) {
           </div>
           <CreateDialog onEmailCreated={handleRefresh} />
         </div>
-        
+
         <div className="flex-1 overflow-auto p-2" onScroll={handleScroll}>
           {loading ? (
             <div className="text-center text-sm text-gray-500">Loading...</div>
@@ -200,7 +201,7 @@ export function EmailList({ onEmailSelect, selectedEmailId }: EmailListProps) {
                     <div className="font-medium truncate">{email.address}</div>
                     <div className="text-xs text-gray-500">
                       {new Date(email.expiresAt).getFullYear() === 9999 ? (
-                        "Never expires"
+                        "Permanent"
                       ) : (
                         `Expires at: ${new Date(email.expiresAt).toLocaleString()}`
                       )}
@@ -236,9 +237,9 @@ export function EmailList({ onEmailSelect, selectedEmailId }: EmailListProps) {
       <AlertDialog open={!!emailToDelete} onOpenChange={() => setEmailToDelete(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Confirm Delete</AlertDialogTitle>
+            <AlertDialogTitle>Confirm Deletion</AlertDialogTitle>
             <AlertDialogDescription>
-              Are you sure you want to delete the email {emailToDelete?.address}? This will delete all emails associated with this address and cannot be undone.
+              Are you sure you want to delete the email {emailToDelete?.address}? This will also delete all emails in the inbox and cannot be undone.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

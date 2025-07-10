@@ -32,7 +32,7 @@ export function SendDialog({ emailId, fromAddress, onSendSuccess }: SendDialogPr
     if (!to.trim() || !subject.trim() || !content.trim()) {
       toast({
         title: "Error",
-        description: "Recipient, subject, and content are required",
+        description: "Recipient, subject, and content are required.",
         variant: "destructive"
       })
       return
@@ -58,7 +58,7 @@ export function SendDialog({ emailId, fromAddress, onSendSuccess }: SendDialogPr
 
       toast({
         title: "Success",
-        description: "Email has been sent"
+        description: "Email sent successfully."
       })
       setOpen(false)
       setTo("")
@@ -70,7 +70,7 @@ export function SendDialog({ emailId, fromAddress, onSendSuccess }: SendDialogPr
     } catch {
       toast({
         title: "Error",
-        description: "Failed to send email",
+        description: "Failed to send email.",
         variant: "destructive"
       })
     } finally {
@@ -95,7 +95,7 @@ export function SendDialog({ emailId, fromAddress, onSendSuccess }: SendDialogPr
             </TooltipTrigger>
           </DialogTrigger>
           <TooltipContent className="sm:hidden">
-            <p>Send new email with this address</p>
+            <p>Send a new email using this address</p>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
@@ -110,12 +110,12 @@ export function SendDialog({ emailId, fromAddress, onSendSuccess }: SendDialogPr
           <Input
             value={to}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTo(e.target.value)}
-            placeholder="Recipient email address"
+            placeholder="Recipient's email address"
           />
           <Input
             value={subject}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSubject(e.target.value)}
-            placeholder="Email subject"
+            placeholder="Subject"
           />
           <Textarea
             value={content}
