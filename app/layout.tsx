@@ -8,24 +8,24 @@ import { Providers } from "./providers"
 import { FloatMenu } from "@/components/float-menu"
 
 export const metadata: Metadata = {
-  title: "CrackOne. - Free Email",
-  description: "Secure, fast, and disposable temporary email. Protect your privacy, block spam, and receive emails instantly—automatically expires when done",
+  title: "CrackOne - Free Temporary Email Service",
+  description:
+    "Secure, fast, and disposable temporary email address to protect your privacy and keep spam away. Supports instant receiving and automatically expires after use.",
   keywords: [
-    "临时邮箱",
-    "一次性邮箱",
-    "匿名邮箱",
-    "隐私保护",
-    "垃圾邮件过滤",
-    "即时收件",
-    "自动过期",
-    "安全邮箱",
-    "注册验证",
-    "临时账号",
-    "萌系邮箱",
-    "电子邮件",
-    "隐私安全",
-    "邮件服务",
-    "CrackOne"
+    "temporary email",
+    "disposable email",
+    "anonymous email",
+    "privacy protection",
+    "spam filter",
+    "instant email",
+    "auto-expiry email",
+    "secure email",
+    "registration verification",
+    "temporary account",
+    "CrackOne",
+    "email service",
+    "privacy safety",
+    "temporary inbox"
   ].join(", "),
   authors: [{ name: "SoftMoe Studio" }],
   creator: "SoftMoe Studio",
@@ -40,26 +40,26 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    locale: "zh_CN",
+    locale: "en_US",
     url: "https://mail.crackone.org/",
-    title: "CrackOne - Free Email",
-    description: "Secure, fast, and disposable temporary email address to protect your privacy and keep spam away. Supports instant receiving and automatically expires after use",
+    title: "CrackOne - Free Temporary Email Service",
+    description:
+      "Secure, fast, and disposable temporary email address to protect your privacy and keep spam away. Supports instant receiving and automatically expires after use.",
     siteName: "CrackOne",
   },
   twitter: {
     card: "summary_large_image",
-    title: "CrackOne Free Email",
-    description: "Secure, fast, and disposable temporary email address to protect your privacy and keep spam away. Supports instant receiving and automatically expires after use",
+    title: "CrackOne - Free Temporary Email Service",
+    description:
+      "Secure, fast, and disposable temporary email address to protect your privacy and keep spam away. Supports instant receiving and automatically expires after use.",
   },
-  manifest: '/manifest.json',
-  icons: [
-    { rel: 'apple-touch-icon', url: '/icons/icon-192x192.png' },
-  ],
+  manifest: "/manifest.json",
+  icons: [{ rel: "apple-touch-icon", url: "/icons/icon-192x192.png" }],
 }
 
 export const viewport: Viewport = {
-  themeColor: '#826DD9',
-  width: 'device-width',
+  themeColor: "#826DD9",
+  width: "device-width",
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
@@ -71,7 +71,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="zh" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="application-name" content="CrackOne" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -80,7 +80,7 @@ export default function RootLayout({
         <meta name="format-detection" content="telephone=no" />
         <meta name="mobile-web-app-capable" content="yes" />
       </head>
-      <body 
+      <body
         className={cn(
           zpix.variable,
           "font-zpix min-h-screen antialiased",
