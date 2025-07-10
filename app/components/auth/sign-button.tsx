@@ -25,7 +25,7 @@ export function SignButton({ size = "default" }: SignButtonProps) {
     return (
       <Button onClick={() => router.push('/login')} className={cn("gap-2", size === "lg" ? "px-8" : "")} size={size}>
         <LogIn className={size === "lg" ? "w-5 h-5" : "w-4 h-4"} />
-        登录/注册
+        Login / Register
       </Button>
     )
   }
@@ -48,7 +48,7 @@ export function SignButton({ size = "default" }: SignButtonProps) {
         <span className="text-sm">{session.user.name}</span>
       </Link>
       <Button onClick={() => signOut({ callbackUrl: "/" })} variant="outline" className={cn("flex-shrink-0", size === "lg" ? "px-8" : "")} size={size}>
-        登出
+        Log Out
       </Button>
     </div>
   )
