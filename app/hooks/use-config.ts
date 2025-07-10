@@ -28,7 +28,7 @@ const useConfigStore = create<ConfigStore>((set) => ({
     try {
       set({ loading: true, error: null })
       const res = await fetch("/api/config")
-      if (!res.ok) throw new Error("Failed to retrieve configuration")
+      if (!res.ok) throw new Error("获取配置失败")
       const data = await res.json() as Config
       set({
         config: {
@@ -42,7 +42,7 @@ const useConfigStore = create<ConfigStore>((set) => ({
       })
     } catch (error) {
       set({ 
-        error: error instanceof Error ? error.message : "Failed to retrieve configuration",
+        error: error instanceof Error ? error.message : "获取配置失败",
         loading: false 
       })
     }

@@ -20,7 +20,7 @@ export function useSendPermission() {
       const response = await fetch('/api/emails/send-permission')
       
       if (!response.ok) {
-        throw new Error('Permission check failed')
+        throw new Error('权限检查失败')
       }
 
       const data = await response.json() as SendPermissionResponse
@@ -32,7 +32,7 @@ export function useSendPermission() {
       }
     } catch (err) {
       setCanSend(false)
-      setError(err instanceof Error ? err.message : 'Permission check failed')
+      setError(err instanceof Error ? err.message : '权限检查失败')
     } finally {
       setLoading(false)
     }

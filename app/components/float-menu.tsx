@@ -24,12 +24,12 @@ export function FloatMenu() {
               <Github 
                 className="w-4 h-4 transition-all duration-300 text-primary group-hover:scale-110"
               />
-              <span className="sr-only">Obtain website source code</span>
+              <span className="sr-only">获取网站源代码</span>
             </Button>
           </TooltipTrigger>
           <TooltipContent>
             <div className="text-sm">
-              <p>Obtain website source code</p>
+              <p>获取网站源代码</p>
             </div>
           </TooltipContent>
         </Tooltip>

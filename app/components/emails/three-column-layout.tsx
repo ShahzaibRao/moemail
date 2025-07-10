@@ -27,7 +27,7 @@ export function ThreeColumnLayout() {
   const headerClass = "p-2 border-b-2 border-primary/20 flex items-center justify-between shrink-0"
   const titleClass = "text-sm font-bold px-2 w-full overflow-hidden"
 
-  // Mobile view logic
+  // 移动端视图逻辑
   const getMobileView = () => {
     if (selectedMessageId) return "message"
     if (selectedEmail) return "emails"
@@ -51,11 +51,11 @@ export function ThreeColumnLayout() {
 
   return (
     <div className="pb-5 pt-20 h-full flex flex-col">
-      {/* Desktop three-column layout */}
+      {/* 桌面端三栏布局 */}
       <div className="hidden lg:grid grid-cols-12 gap-4 h-full min-h-0">
         <div className={cn("col-span-3", columnClass)}>
           <div className={headerClass}>
-            <h2 className={titleClass}>My Mailboxes</h2>
+            <h2 className={titleClass}>我的邮箱</h2>
           </div>
           <div className="flex-1 overflow-auto">
             <EmailList
@@ -88,7 +88,7 @@ export function ThreeColumnLayout() {
                   )}
                 </div>
               ) : (
-                "Select an email to view messages"
+                "选择邮箱查看消息"
               )}
             </h2>
           </div>
@@ -107,7 +107,7 @@ export function ThreeColumnLayout() {
         <div className={cn("col-span-5", columnClass)}>
           <div className={headerClass}>
             <h2 className={titleClass}>
-              {selectedMessageId ? "Email Content" : "Select a message to view details"}
+              {selectedMessageId ? "邮件内容" : "选择邮件查看详情"}
             </h2>
           </div>
           {selectedEmail && selectedMessageId && (
@@ -123,13 +123,13 @@ export function ThreeColumnLayout() {
         </div>
       </div>
 
-      {/* Mobile single-column layout */}
+      {/* 移动端单栏布局 */}
       <div className="lg:hidden h-full min-h-0">
         <div className={cn("h-full", columnClass)}>
           {mobileView === "list" && (
             <>
               <div className={headerClass}>
-                <h2 className={titleClass}>My Mailboxes</h2>
+                <h2 className={titleClass}>我的邮箱</h2>
               </div>
               <div className="flex-1 overflow-auto">
                 <EmailList
@@ -151,7 +151,7 @@ export function ThreeColumnLayout() {
                   }}
                   className="text-sm text-primary shrink-0"
                 >
-                  ← Back to mailbox list
+                  ← 返回邮箱列表
                 </button>
                 <div className="flex-1 flex justify-between items-center gap-2 min-w-0">
                   <div className="flex items-center gap-2">
@@ -187,9 +187,9 @@ export function ThreeColumnLayout() {
                   onClick={() => setSelectedMessageId(null)}
                   className="text-sm text-primary"
                 >
-                  ← Back to message list
+                  ← 返回消息列表
                 </button>
-                <span className="text-sm font-medium">Email Content</span>
+                <span className="text-sm font-medium">邮件内容</span>
               </div>
               <div className="flex-1 overflow-auto">
                 <MessageView
@@ -205,4 +205,4 @@ export function ThreeColumnLayout() {
       </div>
     </div>
   )
-}
+} 

@@ -31,8 +31,8 @@ export function SendDialog({ emailId, fromAddress, onSendSuccess }: SendDialogPr
   const handleSend = async () => {
     if (!to.trim() || !subject.trim() || !content.trim()) {
       toast({
-        title: "Error",
-        description: "Recipient, subject, and content are required.",
+        title: "错误",
+        description: "收件人、主题和内容都是必填项",
         variant: "destructive"
       })
       return
@@ -49,7 +49,7 @@ export function SendDialog({ emailId, fromAddress, onSendSuccess }: SendDialogPr
       if (!response.ok) {
         const data = await response.json()
         toast({
-          title: "Error",
+          title: "错误",
           description: (data as { error: string }).error,
           variant: "destructive"
         })
@@ -57,8 +57,8 @@ export function SendDialog({ emailId, fromAddress, onSendSuccess }: SendDialogPr
       }
 
       toast({
-        title: "Success",
-        description: "Email sent successfully."
+        title: "成功",
+        description: "邮件已发送"
       })
       setOpen(false)
       setTo("")
@@ -69,8 +69,8 @@ export function SendDialog({ emailId, fromAddress, onSendSuccess }: SendDialogPr
     
     } catch {
       toast({
-        title: "Error",
-        description: "Failed to send email.",
+        title: "错误",
+        description: "发送邮件失败",
         variant: "destructive"
       })
     } finally {
@@ -90,49 +90,49 @@ export function SendDialog({ emailId, fromAddress, onSendSuccess }: SendDialogPr
                 className="h-8 gap-2 hover:bg-primary/10 hover:text-primary transition-colors"
               >
                 <Send className="h-4 w-4" />
-                <span className="hidden sm:inline">Send Email</span>
+                <span className="hidden sm:inline">发送邮件</span>
               </Button>
             </TooltipTrigger>
           </DialogTrigger>
           <TooltipContent className="sm:hidden">
-            <p>Send a new email using this address</p>
+            <p>使用此邮箱发送新邮件</p>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Send New Email</DialogTitle>
+          <DialogTitle>发送新邮件</DialogTitle>
         </DialogHeader>
         <div className="space-y-4 py-4">
           <div className="text-sm text-muted-foreground">
-            From: {fromAddress}
+            发件人: {fromAddress}
           </div>
           <Input
             value={to}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTo(e.target.value)}
-            placeholder="Recipient's email address"
+            placeholder="收件人邮箱地址"
           />
           <Input
             value={subject}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSubject(e.target.value)}
-            placeholder="Subject"
+            placeholder="邮件主题"
           />
           <Textarea
             value={content}
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value)}
-            placeholder="Email content"
+            placeholder="邮件内容"
             rows={6}
           />
         </div>
         <div className="flex justify-end gap-2">
           <Button variant="outline" onClick={() => setOpen(false)} disabled={loading}>
-            Cancel
+            取消
           </Button>
           <Button onClick={handleSend} disabled={loading}>
-            {loading ? "Sending..." : "Send"}
+            {loading ? "发送中..." : "发送"}
           </Button>
         </div>
       </DialogContent>
     </Dialog>
   )
-}
+} 

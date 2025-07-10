@@ -13,10 +13,10 @@ import { generateAvatarUrl } from "./avatar"
 import { getUserId } from "./apiKey"
 
 const ROLE_DESCRIPTIONS: Record<Role, string> = {
-  [ROLES.EMPEROR]: "Emperor (Site Owner)",
-  [ROLES.DUKE]: "Duke (Super User)",
-  [ROLES.KNIGHT]: "Knight (Advanced User）",
-  [ROLES.CIVILIAN]: "Civilian (Regular User)",
+  [ROLES.EMPEROR]: "皇帝（网站所有者）",
+  [ROLES.DUKE]: "公爵（超级用户）",
+  [ROLES.KNIGHT]: "骑士（高级用户）",
+  [ROLES.CIVILIAN]: "平民（普通用户）",
 }
 
 const getDefaultRole = async (): Promise<Role> => {
@@ -105,12 +105,12 @@ export const {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        username: { label: "Username", type: "text", placeholder: "Please enter your username" },
-        password: { label: "Password", type: "password", placeholder: "Please enter your password" },
+        username: { label: "用户名", type: "text", placeholder: "请输入用户名" },
+        password: { label: "密码", type: "password", placeholder: "请输入密码" },
       },
       async authorize(credentials) {
         if (!credentials) {
-          throw new Error("Please enter your username and password")
+          throw new Error("请输入用户名和密码")
         }
 
         const { username, password } = credentials
@@ -119,7 +119,7 @@ export const {
           authSchema.parse({ username, password })
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error) {
-          throw new Error("Invalid input format")
+          throw new Error("输入格式不正确")
         }
 
         const db = createDb()
@@ -129,12 +129,12 @@ export const {
         })
 
         if (!user) {
-          throw new Error("Incorrect username or password")
+          throw new Error("用户名或密码错误")
         }
 
         const isValid = await comparePassword(password as string, user.password as string)
         if (!isValid) {
-          throw new Error("Incorrect username or password")
+          throw new Error("用户名或密码错误")
         }
 
         return {
@@ -220,7 +220,7 @@ export async function register(username: string, password: string) {
   })
 
   if (existing) {
-    throw new Error("Username already exists")
+    throw new Error("用户名已存在")
   }
 
   const hashedPassword = await hashPassword(password)

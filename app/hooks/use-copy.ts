@@ -11,21 +11,21 @@ interface UseCopyOptions {
 export function useCopy(options: UseCopyOptions = {}) {
   const { toast } = useToast()
   const {
-    successMessage = "Copied to clipboard",
-    errorMessage = "Copy failed"
+    successMessage = "已复制到剪贴板",
+    errorMessage = "复制失败"
   } = options
 
   const copyToClipboard = useCallback(async (text: string) => {
     try {
       await navigator.clipboard.writeText(text)
       toast({
-        title: "Successfully completed",
+        title: "成功",
         description: successMessage
       })
       return true
     } catch {
       toast({
-        title: "Error",
+        title: "错误",
         description: errorMessage,
         variant: "destructive"
       })

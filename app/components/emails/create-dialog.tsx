@@ -3,28 +3,13 @@
 import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Copy, Plus, RefreshCw } from "lucide-react"
 import { useToast } from "@/components/ui/use-toast"
 import { nanoid } from "nanoid"
-import {
-  RadioGroup,
-  RadioGroupItem,
-} from "@/components/ui/radio-group"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { EXPIRY_OPTIONS } from "@/types/email"
 import { useCopy } from "@/hooks/use-copy"
 import { useConfig } from "@/hooks/use-config"
@@ -34,7 +19,7 @@ interface CreateDialogProps {
 }
 
 export function CreateDialog({ onEmailCreated }: CreateDialogProps) {
-  const { config } = useConfig()
+  const { config } = useConfig()  
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const [emailName, setEmailName] = useState("")
@@ -52,9 +37,9 @@ export function CreateDialog({ onEmailCreated }: CreateDialogProps) {
   const createEmail = async () => {
     if (!emailName.trim()) {
       toast({
-        title: "Error",
-        description: "Please enter an email name",
-        variant: "destructive",
+        title: "错误",
+        description: "请输入邮箱名",
+        variant: "destructive"
       })
       return
     }
@@ -67,32 +52,32 @@ export function CreateDialog({ onEmailCreated }: CreateDialogProps) {
         body: JSON.stringify({
           name: emailName,
           domain: currentDomain,
-          expiryTime: parseInt(expiryTime),
-        }),
+          expiryTime: parseInt(expiryTime)
+        })
       })
 
       if (!response.ok) {
         const data = await response.json()
         toast({
-          title: "Error",
+          title: "错误",
           description: (data as { error: string }).error,
-          variant: "destructive",
+          variant: "destructive"
         })
         return
       }
 
       toast({
-        title: "Success",
-        description: "Temporary email created successfully",
+        title: "成功",
+        description: "已创建新的临时邮箱"
       })
       onEmailCreated()
       setOpen(false)
       setEmailName("")
     } catch {
       toast({
-        title: "Error",
-        description: "Failed to create email",
-        variant: "destructive",
+        title: "错误",
+        description: "创建邮箱失败",
+        variant: "destructive"
       })
     } finally {
       setLoading(false)
@@ -110,19 +95,19 @@ export function CreateDialog({ onEmailCreated }: CreateDialogProps) {
       <DialogTrigger asChild>
         <Button className="gap-2">
           <Plus className="w-4 h-4" />
-          Create New Email
+          创建新邮箱
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Create a New Temporary Email</DialogTitle>
+          <DialogTitle>创建新的临时邮箱</DialogTitle>
         </DialogHeader>
         <div className="space-y-4 py-4">
           <div className="flex gap-2">
             <Input
               value={emailName}
               onChange={(e) => setEmailName(e.target.value)}
-              placeholder="Enter email name"
+              placeholder="输入邮箱名"
               className="flex-1"
             />
             {(config?.emailDomainsArray?.length ?? 0) > 1 && (
@@ -131,7 +116,7 @@ export function CreateDialog({ onEmailCreated }: CreateDialogProps) {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {config?.emailDomainsArray?.map((d) => (
+                  {config?.emailDomainsArray?.map(d => (
                     <SelectItem key={d} value={d}>@{d}</SelectItem>
                   ))}
                 </SelectContent>
@@ -148,7 +133,7 @@ export function CreateDialog({ onEmailCreated }: CreateDialogProps) {
           </div>
 
           <div className="flex items-center gap-4">
-            <Label className="shrink-0 text-muted-foreground">Expiry Time</Label>
+            <Label className="shrink-0 text-muted-foreground">过期时间</Label>
             <RadioGroup
               value={expiryTime}
               onValueChange={setExpiryTime}
@@ -166,7 +151,7 @@ export function CreateDialog({ onEmailCreated }: CreateDialogProps) {
           </div>
 
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <span className="shrink-0">Full email address will be:</span>
+            <span className="shrink-0">完整邮箱地址将为:</span>
             {emailName ? (
               <div className="flex items-center gap-2 min-w-0">
                 <span className="truncate">{`${emailName}@${currentDomain}`}</span>
@@ -184,13 +169,13 @@ export function CreateDialog({ onEmailCreated }: CreateDialogProps) {
         </div>
         <div className="flex justify-end gap-2">
           <Button variant="outline" onClick={() => setOpen(false)} disabled={loading}>
-            Cancel
+            取消
           </Button>
           <Button onClick={createEmail} disabled={loading}>
-            {loading ? "Creating..." : "Create"}
+            {loading ? "创建中..." : "创建"}
           </Button>
         </div>
       </DialogContent>
     </Dialog>
   )
-}
+} 

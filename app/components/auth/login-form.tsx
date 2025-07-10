@@ -37,22 +37,22 @@ export function LoginForm() {
 
   const validateLoginForm = () => {
     const newErrors: FormErrors = {}
-    if (!username) newErrors.username = "Please enter a username"
-    if (!password) newErrors.password = "Please enter a password"
-    if (username.includes('@')) newErrors.username = "Username cannot contain the @ symbol"
-    if (password && password.length < 8) newErrors.password = "Password must be at least 8 characters"
+    if (!username) newErrors.username = "请输入用户名"
+    if (!password) newErrors.password = "请输入密码"
+    if (username.includes('@')) newErrors.username = "用户名不能包含 @ 符号"
+    if (password && password.length < 8) newErrors.password = "密码长度必须大于等于8位"
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
   }
 
   const validateRegisterForm = () => {
     const newErrors: FormErrors = {}
-    if (!username) newErrors.username = "Please enter a username"
-    if (!password) newErrors.password = "Please enter a password"
-    if (username.includes('@')) newErrors.username = "Username cannot contain the @ symbol"
-    if (password && password.length < 8) newErrors.password = "Password must be at least 8 characters"
-    if (!confirmPassword) newErrors.confirmPassword = "Please confirm your password"
-    if (password !== confirmPassword) newErrors.confirmPassword = "Passwords do not match"
+    if (!username) newErrors.username = "请输入用户名"
+    if (!password) newErrors.password = "请输入密码"
+    if (username.includes('@')) newErrors.username = "用户名不能包含 @ 符号"
+    if (password && password.length < 8) newErrors.password = "密码长度必须大于等于8位"
+    if (!confirmPassword) newErrors.confirmPassword = "请确认密码"
+    if (password !== confirmPassword) newErrors.confirmPassword = "两次输入的密码不一致"
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
   }
@@ -70,8 +70,8 @@ export function LoginForm() {
 
       if (result?.error) {
         toast({
-          title: "Login Failed",
-          description: "Incorrect username or password",
+          title: "登录失败",
+          description: "用户名或密码错误",
           variant: "destructive",
         })
         setLoading(false)
@@ -81,8 +81,8 @@ export function LoginForm() {
       window.location.href = "/"
     } catch (error) {
       toast({
-        title: "Login Failed",
-        description: error instanceof Error ? error.message : "Please try again later",
+        title: "登录失败",
+        description: error instanceof Error ? error.message : "请稍后重试",
         variant: "destructive",
       })
       setLoading(false)
@@ -104,15 +104,15 @@ export function LoginForm() {
 
       if (!response.ok) {
         toast({
-          title: "Registration Failed",
-          description: data.error || "Please try again later",
+          title: "注册失败",
+          description: data.error || "请稍后重试",
           variant: "destructive",
         })
         setLoading(false)
         return
       }
 
-      // Auto-login after registration
+      // 注册成功后自动登录
       const result = await signIn("credentials", {
         username,
         password,
@@ -121,8 +121,8 @@ export function LoginForm() {
 
       if (result?.error) {
         toast({
-          title: "Login Failed",
-          description: "Auto-login failed. Please log in manually.",
+          title: "登录失败",
+          description: "自动登录失败，请手动登录",
           variant: "destructive",
         })
         setLoading(false)
@@ -132,8 +132,8 @@ export function LoginForm() {
       window.location.href = "/"
     } catch (error) {
       toast({
-        title: "Registration Failed",
-        description: error instanceof Error ? error.message : "Please try again later",
+        title: "注册失败",
+        description: error instanceof Error ? error.message : "请稍后重试",
         variant: "destructive",
       })
       setLoading(false)
@@ -155,17 +155,17 @@ export function LoginForm() {
     <Card className="w-[95%] max-w-lg border-2 border-primary/20">
       <CardHeader className="space-y-2">
         <CardTitle className="text-2xl text-center bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
-          Welcome to MoeMail
+          欢迎使用 MoeMail
         </CardTitle>
         <CardDescription className="text-center">
-          Cute temporary email service (。・∀・)ノ
+          萌萌哒临时邮箱服务 (。・∀・)ノ
         </CardDescription>
       </CardHeader>
       <CardContent className="px-6">
         <Tabs defaultValue="login" className="w-full" onValueChange={clearForm}>
           <TabsList className="grid w-full grid-cols-2 mb-6">
-            <TabsTrigger value="login">Login</TabsTrigger>
-            <TabsTrigger value="register">Register</TabsTrigger>
+            <TabsTrigger value="login">登录</TabsTrigger>
+            <TabsTrigger value="register">注册</TabsTrigger>
           </TabsList>
           <div className="min-h-[220px]">
             <TabsContent value="login" className="space-y-4 mt-0">
@@ -180,7 +180,7 @@ export function LoginForm() {
                         "h-9 pl-9 pr-3",
                         errors.username && "border-destructive focus-visible:ring-destructive"
                       )}
-                      placeholder="Username"
+                      placeholder="用户名"
                       value={username}
                       onChange={(e) => {
                         setUsername(e.target.value)
@@ -204,7 +204,7 @@ export function LoginForm() {
                         errors.password && "border-destructive focus-visible:ring-destructive"
                       )}
                       type="password"
-                      placeholder="Password"
+                      placeholder="密码"
                       value={password}
                       onChange={(e) => {
                         setPassword(e.target.value)
@@ -226,7 +226,7 @@ export function LoginForm() {
                   disabled={loading}
                 >
                   {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                  Login
+                  登录
                 </Button>
 
                 <div className="relative">
@@ -235,7 +235,7 @@ export function LoginForm() {
                   </div>
                   <div className="relative flex justify-center text-xs uppercase">
                     <span className="bg-background px-2 text-muted-foreground">
-                      or
+                      或者
                     </span>
                   </div>
                 </div>
@@ -246,7 +246,7 @@ export function LoginForm() {
                   onClick={handleGithubLogin}
                 >
                   <Github className="mr-2 h-4 w-4" />
-                  Login with GitHub
+                  使用 GitHub 账号登录
                 </Button>
               </div>
             </TabsContent>
@@ -262,7 +262,7 @@ export function LoginForm() {
                         "h-9 pl-9 pr-3",
                         errors.username && "border-destructive focus-visible:ring-destructive"
                       )}
-                      placeholder="Username"
+                      placeholder="用户名"
                       value={username}
                       onChange={(e) => {
                         setUsername(e.target.value)
@@ -286,7 +286,7 @@ export function LoginForm() {
                         errors.password && "border-destructive focus-visible:ring-destructive"
                       )}
                       type="password"
-                      placeholder="Password"
+                      placeholder="密码"
                       value={password}
                       onChange={(e) => {
                         setPassword(e.target.value)
@@ -310,7 +310,7 @@ export function LoginForm() {
                         errors.confirmPassword && "border-destructive focus-visible:ring-destructive"
                       )}
                       type="password"
-                      placeholder="Confirm Password"
+                      placeholder="确认密码"
                       value={confirmPassword}
                       onChange={(e) => {
                         setConfirmPassword(e.target.value)
@@ -332,7 +332,7 @@ export function LoginForm() {
                   disabled={loading}
                 >
                   {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                  Register
+                  注册
                 </Button>
               </div>
             </TabsContent>

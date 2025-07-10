@@ -21,7 +21,7 @@ export async function checkSendPermission(
     if (enabled !== "true") {
       return {
         canSend: false,
-        error: "Email sending service is not enabled"
+        error: "邮件发送服务未启用"
       }
     }
 
@@ -30,7 +30,7 @@ export async function checkSendPermission(
     if (userDailyLimit === -1) {
       return {
         canSend: false,
-        error: "Your role does not have permission to send emails."
+        error: "您的角色没有发件权限"
       }
     }
 
@@ -61,7 +61,7 @@ export async function checkSendPermission(
     if (sentToday.length >= userDailyLimit) {
       return {
         canSend: false,
-        error: `You have reached your sending limit for today (${userDailyLimit} 封)，please try again tomorrow.`,
+        error: `您今天已达到发件限制 (${userDailyLimit} 封)，请明天再试`,
         remainingEmails: 0
       }
     }
@@ -74,7 +74,7 @@ export async function checkSendPermission(
     console.error('Failed to check send permission:', error)
     return {
       canSend: false,
-      error: "Permission check failed"
+      error: "权限检查失败"
     }
   }
 }

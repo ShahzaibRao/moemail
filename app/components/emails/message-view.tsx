@@ -48,10 +48,10 @@ export function MessageView({ emailId, messageId, messageType = 'received' }: Me
         
         if (!response.ok) {
           const errorData = await response.json()
-          const errorMessage = (errorData as { error?: string }).error || 'Failed to fetch message details'
+          const errorMessage = (errorData as { error?: string }).error || '获取邮件详情失败'
           setError(errorMessage)
           toast({
-            title: "Error",
+            title: "错误",
             description: errorMessage,
             variant: "destructive"
           })
@@ -64,10 +64,10 @@ export function MessageView({ emailId, messageId, messageType = 'received' }: Me
           setViewMode("text")
         }
       } catch (error) {
-        const errorMessage = "Network error. Please try again later."
+        const errorMessage = "网络错误，请稍后重试"
         setError(errorMessage)
         toast({
-          title: "Error", 
+          title: "错误", 
           description: errorMessage,
           variant: "destructive"
         })
@@ -111,7 +111,7 @@ export function MessageView({ emailId, messageId, messageType = 'received' }: Me
                 a {
                   color: #2563eb;
                 }
-                /* Scrollbar styles */
+                /* 滚动条样式 */
                 ::-webkit-scrollbar {
                   width: 6px;
                   height: 6px;
@@ -131,7 +131,7 @@ export function MessageView({ emailId, messageId, messageType = 'received' }: Me
                     ? 'rgba(130, 109, 217, 0.5)'
                     : 'rgba(130, 109, 217, 0.4)'};
                 }
-                /* Firefox scrollbar */
+                /* Firefox 滚动条 */
                 * {
                   scrollbar-width: thin;
                   scrollbar-color: ${theme === 'dark'
@@ -145,6 +145,7 @@ export function MessageView({ emailId, messageId, messageType = 'received' }: Me
         `)
         doc.close()
 
+        // 更新高度以填充容器
         const updateHeight = () => {
           const container = iframe.parentElement
           if (container) {
@@ -155,9 +156,11 @@ export function MessageView({ emailId, messageId, messageType = 'received' }: Me
         updateHeight()
         window.addEventListener('resize', updateHeight)
 
+        // 监听内容变化
         const resizeObserver = new ResizeObserver(updateHeight)
         resizeObserver.observe(doc.body)
 
+        // 监听图片加载
         doc.querySelectorAll('img').forEach((img: HTMLImageElement) => {
           img.onload = updateHeight
         })
@@ -170,6 +173,7 @@ export function MessageView({ emailId, messageId, messageType = 'received' }: Me
     }
   }
 
+  // 监听主题变化和内容变化
   useEffect(() => {
     updateIframeContent()
   }, [message?.html, viewMode, theme])
@@ -178,7 +182,7 @@ export function MessageView({ emailId, messageId, messageType = 'received' }: Me
     return (
       <div className="flex items-center justify-center h-32">
         <Loader2 className="w-5 h-5 animate-spin text-primary/60" />
-        <span className="ml-2 text-sm text-gray-500">Loading message...</span>
+        <span className="ml-2 text-sm text-gray-500">加载邮件详情...</span>
       </div>
     )
   }
@@ -191,7 +195,7 @@ export function MessageView({ emailId, messageId, messageType = 'received' }: Me
           onClick={() => window.location.reload()} 
           className="text-xs text-primary hover:underline"
         >
-          Click to retry
+          点击重试
         </button>
       </div>
     )
@@ -205,12 +209,12 @@ export function MessageView({ emailId, messageId, messageType = 'received' }: Me
         <h3 className="text-base font-bold">{message.subject}</h3>
         <div className="text-xs text-gray-500 space-y-1">
           {message.from_address && (
-            <p>From: {message.from_address}</p>
+            <p>发件人：{message.from_address}</p>
           )}
           {message.to_address && (
-            <p>To: {message.to_address}</p>
+            <p>收件人：{message.to_address}</p>
           )}
-          <p>Time: {new Date(message.sent_at || message.received_at || 0).toLocaleString()}</p>
+          <p>时间：{new Date(message.sent_at || message.received_at || 0).toLocaleString()}</p>
         </div>
       </div>
       
@@ -227,7 +231,7 @@ export function MessageView({ emailId, messageId, messageType = 'received' }: Me
                 htmlFor="html" 
                 className="text-xs cursor-pointer"
               >
-                HTML Format
+                HTML 格式
               </Label>
             </div>
             <div className="flex items-center space-x-2">
@@ -236,7 +240,7 @@ export function MessageView({ emailId, messageId, messageType = 'received' }: Me
                 htmlFor="text" 
                 className="text-xs cursor-pointer"
               >
-                Plain Text Format
+                纯文本格式
               </Label>
             </div>
           </RadioGroup>
@@ -258,4 +262,4 @@ export function MessageView({ emailId, messageId, messageType = 'received' }: Me
       </div>
     </div>
   )
-}
+} 
