@@ -8,24 +8,24 @@ import { Providers } from "./providers"
 import { FloatMenu } from "@/components/float-menu"
 
 export const metadata: Metadata = {
-  title: "MoeMail - 萌萌哒临时邮箱服务",
-  description: "安全、快速、一次性的临时邮箱地址，保护您的隐私，远离垃圾邮件。支持即时收件，到期自动失效。",
+  title: "CrackOne - Free email Service",
+  description: "A secure, fast, and disposable temporary email address to protect your privacy and keep spam away. Supports instant inbox and automatic expiration",
   keywords: [
-    "临时邮箱",
-    "一次性邮箱",
-    "匿名邮箱",
-    "隐私保护",
-    "垃圾邮件过滤",
-    "即时收件",
-    "自动过期",
-    "安全邮箱",
-    "注册验证",
-    "临时账号",
-    "萌系邮箱",
-    "电子邮件",
-    "隐私安全",
-    "邮件服务",
-    "MoeMail"
+   "Temporary Email",
+  "One-Time Email",
+  "Anonymous Email",
+  "Privacy Protection",
+  "Spam Filtering",
+  "Instant Inbox",
+  "Auto Expiry",
+  "Secure Email",
+  "Signup Verification",
+  "Temporary Account",
+  "Cute Email",
+  "Email Service",
+  "Privacy and Security",
+  "Disposable Email",
+  "CrackOne"
   ].join(", "),
   authors: [{ name: "SoftMoe Studio" }],
   creator: "SoftMoe Studio",
@@ -40,16 +40,16 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    locale: "zh_CN",
-    url: "https://moemail.app",
-    title: "MoeMail - 萌萌哒临时邮箱服务",
-    description: "安全、快速、一次性的临时邮箱地址，保护您的隐私，远离垃圾邮件。支持即时收件，到期自动失效。",
-    siteName: "MoeMail",
+    locale: "en_US",
+    url: "https://mail.crackone.org",
+    title: "CrackOne - Free email Service",
+    description: "A secure, fast, and disposable temporary email address to protect your privacy and keep spam away. Supports instant inbox and automatic expiration",
+    siteName: "CrackOne",
   },
   twitter: {
     card: "summary_large_image",
-    title: "MoeMail - 萌萌哒临时邮箱服务",
-    description: "安全、快速、一次性的临时邮箱地址，保护您的隐私，远离垃圾邮件。支持即时收件，到期自动失效。",
+    title: "CrackOne - Free email Service",
+    description: "A secure, fast, and disposable temporary email address to protect your privacy and keep spam away. Supports instant inbox and automatic expiration",
   },
   manifest: '/manifest.json',
   icons: [
@@ -71,12 +71,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="zh" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
-        <meta name="application-name" content="MoeMail" />
+        <meta name="application-name" content="CrackOne" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="MoeMail" />
+        <meta name="apple-mobile-web-app-title" content="CrackOne" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="mobile-web-app-capable" content="yes" />
       </head>
