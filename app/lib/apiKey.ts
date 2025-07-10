@@ -27,7 +27,7 @@ async function getUserByApiKey(key: string): Promise<User | null> {
 export async function handleApiKeyAuth(apiKey: string, pathname: string) {
   if (!pathname.startsWith('/api/emails') && !pathname.startsWith('/api/config')) {
     return NextResponse.json(
-      { error: "无权限查看" },
+      { error: "No permission to view" },
       { status: 403 }
     )
   }
@@ -35,7 +35,7 @@ export async function handleApiKeyAuth(apiKey: string, pathname: string) {
   const user = await getUserByApiKey(apiKey)
   if (!user?.id) {
     return NextResponse.json(
-      { error: "无效的 API Key" },
+      { error: "Invalid API Key" },
       { status: 401 }
     )
   }
