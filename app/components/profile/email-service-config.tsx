@@ -64,17 +64,17 @@ export function EmailServiceConfig() {
 
       if (!res.ok) {
         const error = await res.json() as { error: string }
-        throw new Error(error.error || "保存失败")
+        throw new Error(error.error || "Save failed")
       }
 
       toast({
-        title: "保存成功",
-        description: "Resend 发件服务配置已更新",
+        title: "Save successful",
+        description: "Resend email service configuration has been updated",
       })
     } catch (error) {
       toast({
-        title: "保存失败",
-        description: error instanceof Error ? error.message : "请稍后重试",
+        title: "Save failed",
+        description: error instanceof Error ? error.message : "Please try again later",
         variant: "destructive",
       })
     } finally {
@@ -86,17 +86,17 @@ export function EmailServiceConfig() {
     <div className="bg-background rounded-lg border-2 border-primary/20 p-6">
       <div className="flex items-center gap-2 mb-6">
         <Zap className="w-5 h-5 text-primary" />
-        <h2 className="text-lg font-semibold">Resend 发件服务配置</h2>
+        <h2 className="text-lg font-semibold">Resend Email Service Configuration</h2>
       </div>
 
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div className="space-y-0.5">
             <Label htmlFor="enabled" className="text-sm font-medium">
-              启用 Resend 发件服务
+              Enable Resend Email Service
             </Label>
             <p className="text-xs text-muted-foreground">
-              开启后将使用 Resend 发送邮件
+              Emails will be sent via Resend when enabled
             </p>
           </div>
           <Switch
@@ -120,7 +120,7 @@ export function EmailServiceConfig() {
                   type={showToken ? "text" : "password"}
                   value={config.apiKey}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => setConfig((prev: EmailServiceConfig) => ({ ...prev, apiKey: e.target.value }))}
-                  placeholder="输入 Resend API Key"
+                  placeholder="Enter your Resend API Key"
                 />
                 <Button
                   type="button"
@@ -140,29 +140,29 @@ export function EmailServiceConfig() {
 
             <div className="space-y-2">
               <Label className="text-sm font-medium">
-                允许使用发件功能的角色
+                Roles Allowed to Use Email Sending
               </Label>
               <div className="space-y-4">
                 <div className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg text-sm">
                   <p className="font-semibold text-blue-900 mb-3 flex items-center gap-2">
                     <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                    固定权限规则
+                    Fixed Permission Rules
                   </p>
                   <div className="space-y-2 text-blue-800">
                     <div className="flex items-center gap-2">
                       <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
-                      <span><strong>Emperor (皇帝)</strong> - 可以无限发件，不受任何限制</span>
+                      <span><strong>Emperor (皇帝)</strong> - Unlimited sending, no restrictions</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="w-1.5 h-1.5 bg-red-500 rounded-full"></div>
-                      <span><strong>Civilian (平民)</strong> - 永远不能发件</span>
+                      <span><strong>Civilian (平民)</strong> - Never allowed to send emails</span>
                     </div>
                   </div>
                 </div>
                 <div className="space-y-4">
                   <div className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
-                    <p className="text-sm font-medium text-gray-900">可配置的角色权限</p>
+                    <p className="text-sm font-medium text-gray-900">Configurable Role Permissions</p>
                   </div>
                   {[
                     { value: "duke", label: "Duke (公爵)", key: "duke" as const },
@@ -208,13 +208,13 @@ export function EmailServiceConfig() {
                                 {role.label}
                               </Label>
                               <p className="text-xs text-muted-foreground mt-1">
-                                {isEnabled ? '已启用发件权限' : '未启用发件权限'}
+                                {isEnabled ? 'Email sending permission enabled' : 'Email sending permission disabled'}
                               </p>
                             </div>
                           </div>
                           <div className="flex items-center space-x-3">
                             <div className="text-right">
-                              <Label className="text-xs font-medium text-gray-600 block mb-1">每日限制</Label>
+                              <Label className="text-xs font-medium text-gray-600 block mb-1">Daily Limit</Label>
                               <div className="flex items-center space-x-2">
                                 <Input
                                   type="number"
@@ -233,9 +233,9 @@ export function EmailServiceConfig() {
                                   placeholder="0"
                                   disabled={isDisabled}
                                 />
-                                <span className="text-xs text-muted-foreground whitespace-nowrap">封/天</span>
+                                <span className="text-xs text-muted-foreground whitespace-nowrap">emails/day</span>
                               </div>
-                              <p className="text-xs text-muted-foreground mt-1">0 = 无限制</p>
+                              <p className="text-xs text-muted-foreground mt-1">0 = unlimited</p>
                             </div>
                           </div>
                         </div>
@@ -253,9 +253,9 @@ export function EmailServiceConfig() {
           disabled={loading}
           className="w-full"
         >
-          {loading ? "保存中..." : "保存配置"}
+          {loading ? "Saving..." : "Save Configuration"}
         </Button>
       </div>
     </div>
   )
-} 
+}
