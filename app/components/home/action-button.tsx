@@ -20,7 +20,7 @@ export function ActionButton({ isLoggedIn }: ActionButtonProps) {
         className="gap-2 bg-primary hover:bg-primary/90 text-white px-8"
       >
         <Mail className="w-5 h-5" />
-        进入邮箱
+        Open Mailbox
       </Button>
     )
   }
