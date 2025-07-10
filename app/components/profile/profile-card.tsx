@@ -40,7 +40,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
             {user.image && (
               <Image
                 src={user.image}
-                alt={user.name || "用户头像"}
+                alt={user.name || "User avatar"}
                 width={80}
                 height={80}
                 className="rounded-full ring-2 ring-primary/20"
@@ -55,14 +55,14 @@ export function ProfileCard({ user }: ProfileCardProps) {
                   // 先简单实现，后续再完善
                   <div className="flex items-center gap-1 text-xs text-primary bg-primary/10 px-2 py-0.5 rounded-full flex-shrink-0">
                     <Github className="w-3 h-3" />
-                    已关联
+                    Linked
                   </div>
                 )
               }
             </div>
             <p className="text-sm text-muted-foreground truncate mt-1">
               {
-                user.email ? user.email : `用户名: ${user.username}`
+                user.email ? user.email : `Username: ${user.username}`
               }
             </p>
             {user.roles && (
@@ -91,7 +91,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
         <div className="bg-background rounded-lg border-2 border-primary/20 p-6">
           <div className="flex items-center gap-2 mb-6">
             <Settings className="w-5 h-5 text-primary" />
-            <h2 className="text-lg font-semibold">Webhook 配置</h2>
+            <h2 className="text-lg font-semibold">Webhook Configuration</h2>
           </div>
           <WebhookConfig />
         </div>
@@ -108,14 +108,14 @@ export function ProfileCard({ user }: ProfileCardProps) {
           className="gap-2 flex-1"
         >
           <Mail className="w-4 h-4" />
-          返回邮箱
+          Back to Email
         </Button>
         <Button 
           variant="outline" 
           onClick={() => signOut({ callbackUrl: "/" })}
           className="flex-1"
         >
-          退出登录
+          Log out
         </Button>
       </div>
     </div>
