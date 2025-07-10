@@ -8,8 +8,8 @@ import { Providers } from "./providers"
 import { FloatMenu } from "@/components/float-menu"
 
 export const metadata: Metadata = {
-  title: "MoeMail - 萌萌哒临时邮箱服务",
-  description: "安全、快速、一次性的临时邮箱地址，保护您的隐私，远离垃圾邮件。支持即时收件，到期自动失效。",
+  title: "CrackOne. - Free Email",
+  description: "Secure, fast, and disposable temporary email. Protect your privacy, block spam, and receive emails instantly—automatically expires when done",
   keywords: [
     "临时邮箱",
     "一次性邮箱",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     "电子邮件",
     "隐私安全",
     "邮件服务",
-    "MoeMail"
+    "CrackOne"
   ].join(", "),
   authors: [{ name: "SoftMoe Studio" }],
   creator: "SoftMoe Studio",
@@ -41,15 +41,15 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "zh_CN",
-    url: "https://moemail.app",
-    title: "MoeMail - 萌萌哒临时邮箱服务",
-    description: "安全、快速、一次性的临时邮箱地址，保护您的隐私，远离垃圾邮件。支持即时收件，到期自动失效。",
-    siteName: "MoeMail",
+    url: "https://mail.crackone.org/",
+    title: "CrackOne - Free Email",
+    description: "Secure, fast, and disposable temporary email address to protect your privacy and keep spam away. Supports instant receiving and automatically expires after use",
+    siteName: "CrackOne",
   },
   twitter: {
     card: "summary_large_image",
-    title: "MoeMail - 萌萌哒临时邮箱服务",
-    description: "安全、快速、一次性的临时邮箱地址，保护您的隐私，远离垃圾邮件。支持即时收件，到期自动失效。",
+    title: "CrackOne Free Email",
+    description: "Secure, fast, and disposable temporary email address to protect your privacy and keep spam away. Supports instant receiving and automatically expires after use",
   },
   manifest: '/manifest.json',
   icons: [
@@ -73,10 +73,10 @@ export default function RootLayout({
   return (
     <html lang="zh" suppressHydrationWarning>
       <head>
-        <meta name="application-name" content="MoeMail" />
+        <meta name="application-name" content="CrackOne" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="MoeMail" />
+        <meta name="apple-mobile-web-app-title" content="crackOne" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="mobile-web-app-capable" content="yes" />
       </head>
