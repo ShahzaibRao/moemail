@@ -71,7 +71,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="zh" suppressHydrationWarning>
+    <html lang="us" suppressHydrationWarning>
       <head>
         <meta name="application-name" content="CrackOne" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
