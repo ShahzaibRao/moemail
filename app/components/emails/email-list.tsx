@@ -125,7 +125,7 @@ export function EmailList({ onEmailSelect, selectedEmailId }: EmailListProps) {
       if (!response.ok) {
         const data = await response.json()
         toast({
-          title: "错误",
+          title: "Error",
           description: (data as { error: string }).error,
           variant: "destructive"
         })
@@ -136,8 +136,8 @@ export function EmailList({ onEmailSelect, selectedEmailId }: EmailListProps) {
       setTotal(prev => prev - 1)
 
       toast({
-        title: "成功",
-        description: "邮箱已删除"
+        title: "Success",
+        description: "Email deleted"
       })
       
       if (selectedEmailId === email.id) {
@@ -145,8 +145,8 @@ export function EmailList({ onEmailSelect, selectedEmailId }: EmailListProps) {
       }
     } catch {
       toast({
-        title: "错误",
-        description: "删除邮箱失败",
+        title: "Error",
+        description: "Failed to delete email",
         variant: "destructive"
       })
     } finally {
@@ -172,9 +172,9 @@ export function EmailList({ onEmailSelect, selectedEmailId }: EmailListProps) {
             </Button>
             <span className="text-xs text-gray-500">
               {role === ROLES.EMPEROR ? (
-                `${total}/∞ 个邮箱`
+                `${total}/∞ emails`
               ) : (
-                `${total}/${config?.maxEmails || EMAIL_CONFIG.MAX_ACTIVE_EMAILS} 个邮箱`
+                `${total}/${config?.maxEmails || EMAIL_CONFIG.MAX_ACTIVE_EMAILS} emails`
               )}
             </span>
           </div>
@@ -183,7 +183,7 @@ export function EmailList({ onEmailSelect, selectedEmailId }: EmailListProps) {
         
         <div className="flex-1 overflow-auto p-2" onScroll={handleScroll}>
           {loading ? (
-            <div className="text-center text-sm text-gray-500">加载中...</div>
+            <div className="text-center text-sm text-gray-500">Loading...</div>
           ) : emails.length > 0 ? (
             <div className="space-y-1">
               {emails.map(email => (
@@ -200,9 +200,9 @@ export function EmailList({ onEmailSelect, selectedEmailId }: EmailListProps) {
                     <div className="font-medium truncate">{email.address}</div>
                     <div className="text-xs text-gray-500">
                       {new Date(email.expiresAt).getFullYear() === 9999 ? (
-                        "永久有效"
+                        "Never expires"
                       ) : (
-                        `过期时间: ${new Date(email.expiresAt).toLocaleString()}`
+                        `Expires at: ${new Date(email.expiresAt).toLocaleString()}`
                       )}
                     </div>
                   </div>
@@ -221,13 +221,13 @@ export function EmailList({ onEmailSelect, selectedEmailId }: EmailListProps) {
               ))}
               {loadingMore && (
                 <div className="text-center text-sm text-gray-500 py-2">
-                  加载更多...
+                  Loading more...
                 </div>
               )}
             </div>
           ) : (
             <div className="text-center text-sm text-gray-500">
-              还没有邮箱，创建一个吧！
+              No emails yet, create one!
             </div>
           )}
         </div>
@@ -236,22 +236,22 @@ export function EmailList({ onEmailSelect, selectedEmailId }: EmailListProps) {
       <AlertDialog open={!!emailToDelete} onOpenChange={() => setEmailToDelete(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>确认删除</AlertDialogTitle>
+            <AlertDialogTitle>Confirm Delete</AlertDialogTitle>
             <AlertDialogDescription>
-              确定要删除邮箱 {emailToDelete?.address} 吗？此操作将同时删除该邮箱中的所有邮件，且不可恢复。
+              Are you sure you want to delete the email {emailToDelete?.address}? This will delete all emails associated with this address and cannot be undone.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>取消</AlertDialogCancel>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
               className="bg-destructive hover:bg-destructive/90"
               onClick={() => emailToDelete && handleDelete(emailToDelete)}
             >
-              删除
+              Delete
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
     </>
   )
-} 
+}
