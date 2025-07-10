@@ -42,7 +42,7 @@ export function WebhookConfig() {
           <Loader2 className="w-6 h-6 text-primary animate-spin" />
         </div>
         <div>
-          <p className="text-sm text-muted-foreground">Loading...</p>
+          <p className="text-sm text-muted-foreground">加载中...</p>
         </div>
       </div>
     )
@@ -63,13 +63,13 @@ export function WebhookConfig() {
       if (!res.ok) throw new Error("Failed to save")
 
       toast({
-        title: "Saved Successfully",
-        description: "Webhook configuration updated"
+        title: "保存成功",
+        description: "Webhook 配置已更新"
       })
     } catch (_error) {
       toast({
-        title: "Save Failed",
-        description: "Please try again later",
+        title: "保存失败",
+        description: "请稍后重试",
         variant: "destructive"
       })
     } finally {
@@ -88,16 +88,16 @@ export function WebhookConfig() {
         body: JSON.stringify({ url })
       })
 
-      if (!res.ok) throw new Error("Test failed")
+      if (!res.ok) throw new Error("测试失败")
 
       toast({
-        title: "Test Successful",
-        description: "Webhook called successfully. Please check if the target server received the request."
+        title: "测试成功",
+        description: "Webhook 调用成功,请检查目标服务器是否收到请求"
       })
     } catch (_error) {
       toast({
-        title: "Test Failed",
-        description: "Please check if the URL is correct and accessible",
+        title: "测试失败",
+        description: "请检查 URL 是否正确且可访问",
         variant: "destructive"
       })
     } finally {
@@ -109,9 +109,9 @@ export function WebhookConfig() {
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="flex items-center justify-between">
         <div className="space-y-0.5">
-          <Label>Enable Webhook</Label>
+          <Label>启用 Webhook</Label>
           <div className="text-sm text-muted-foreground">
-            Notify the specified URL when a new email is received
+            当收到新邮件时通知指定的 URL
           </div>
         </div>
         <Switch
@@ -137,7 +137,7 @@ export function WebhookConfig() {
                 {loading ? (
                   <Loader2 className="w-4 h-4 animate-spin" />
                 ) : (
-                  "Save"
+                  "保存"
                 )}
               </Button>
               <TooltipProvider>
@@ -157,13 +157,13 @@ export function WebhookConfig() {
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>Send a test message to this webhook</p>
+                    <p>发送测试消息到此 Webhook</p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
             </div>
             <p className="text-xs text-muted-foreground">
-              We will send a POST request to this URL containing information about the new email.
+              我们会向此 URL 发送 POST 请求,包含新邮件的相关信息
             </p>
           </div>
 
@@ -174,26 +174,26 @@ export function WebhookConfig() {
               onClick={() => setShowDocs(!showDocs)}
             >
               {showDocs ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-              View data format specification
+              查看数据格式说明
             </button>
 
             {showDocs && (
               <div className="rounded-md bg-muted p-4 text-sm space-y-3">
-                <p>When a new email is received, we send a POST request to the configured URL with headers:</p>
+                <p>当收到新邮件时，我们会向配置的 URL 发送 POST 请求，请求头包含:</p>
                 <pre className="bg-background p-2 rounded text-xs">
                   Content-Type: application/json{'\n'}
                   X-Webhook-Event: new_message
                 </pre>
 
-                <p>Sample request body:</p>
+                <p>请求体示例:</p>
                 <pre className="bg-background p-2 rounded text-xs overflow-auto">
                   {`{
   "emailId": "email-uuid",
   "messageId": "message-uuid",
   "fromAddress": "sender@example.com",
-  "subject": "Email subject",
-  "content": "Plain text content of the email",
-  "html": "HTML content of the email",
+  "subject": "邮件主题",
+  "content": "邮件文本内容",
+  "html": "邮件HTML内容",
   "receivedAt": "2024-01-01T12:00:00.000Z",
   "toAddress": "your-email@${window.location.host}"
 }`}
@@ -205,4 +205,4 @@ export function WebhookConfig() {
       )}
     </form>
   )
-}
+} 

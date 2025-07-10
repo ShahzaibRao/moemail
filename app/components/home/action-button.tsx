@@ -20,10 +20,10 @@ export function ActionButton({ isLoggedIn }: ActionButtonProps) {
         className="gap-2 bg-primary hover:bg-primary/90 text-white px-8"
       >
         <Mail className="w-5 h-5" />
-        Open Mailbox
+        Go to Mailbox
       </Button>
     )
   }
 
   return <SignButton size="lg" />
-} 
+}

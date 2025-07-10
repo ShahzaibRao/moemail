@@ -21,9 +21,9 @@ const roleIcons = {
 } as const
 
 const roleNames = {
-  [ROLES.DUKE]: "Duke",
-  [ROLES.KNIGHT]: "Knight",
-  [ROLES.CIVILIAN]: "Civilian",
+  [ROLES.DUKE]: "公爵",
+  [ROLES.KNIGHT]: "骑士",
+  [ROLES.CIVILIAN]: "平民",
 } as const
 
 type RoleWithoutEmperor = Exclude<Role, typeof ROLES.EMPEROR>
@@ -55,12 +55,12 @@ export function PromotePanel() {
         error?: string
       }
 
-      if (!res.ok) throw new Error(data.error || "Unknown error")
+      if (!res.ok) throw new Error(data.error || "未知错误")
 
       if (!data.user) {
         toast({
-          title: "User Not Found",
-          description: "Please check if the username or email is correct",
+          title: "未找到用户",
+          description: "请确认用户名或邮箱地址是否正确",
           variant: "destructive"
         })
         return
@@ -68,8 +68,8 @@ export function PromotePanel() {
 
       if (data.user.role === targetRole) {
         toast({
-          title: `User is already a ${roleNames[targetRole]}`,
-          description: "No need to set it again",
+          title: `用户已是${roleNames[targetRole]}`,
+          description: "无需重复设置",
         })
         return
       }
@@ -85,18 +85,18 @@ export function PromotePanel() {
 
       if (!promoteRes.ok) {
         const error = await promoteRes.json() as { error: string }
-        throw new Error(error.error || "Failed to set role")
+        throw new Error(error.error || "设置失败")
       }
 
       toast({
-        title: "Success",
-        description: `User ${data.user.username || data.user.email} has been set as ${roleNames[targetRole]}`,
+        title: "设置成功",
+        description: `已将用户 ${data.user.username || data.user.email} 设为${roleNames[targetRole]}`,
       })
       setSearchText("")
     } catch (error) {
       toast({
-        title: "Failed to Set Role",
-        description: error instanceof Error ? error.message : "Please try again later",
+        title: "设置失败",
+        description: error instanceof Error ? error.message : "请稍后重试",
         variant: "destructive"
       })
     } finally {
@@ -110,7 +110,7 @@ export function PromotePanel() {
     <div className="bg-background rounded-lg border-2 border-primary/20 p-6">
       <div className="flex items-center gap-2 mb-6">
         <Icon className="w-5 h-5 text-primary" />
-        <h2 className="text-lg font-semibold">Role Management</h2>
+        <h2 className="text-lg font-semibold">角色管理</h2>
       </div>
 
       <div className="space-y-4">
@@ -119,7 +119,7 @@ export function PromotePanel() {
             <Input
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
-              placeholder="Enter username or email"
+              placeholder="输入用户名或邮箱"
             />
           </div>
           <Select value={targetRole} onValueChange={(value) => setTargetRole(value as RoleWithoutEmperor)}>
@@ -130,19 +130,19 @@ export function PromotePanel() {
               <SelectItem value={ROLES.DUKE}>
                 <div className="flex items-center gap-2">
                   <Gem className="w-4 h-4" />
-                  Duke
+                  公爵
                 </div>
               </SelectItem>
               <SelectItem value={ROLES.KNIGHT}>
                 <div className="flex items-center gap-2">
                   <Sword className="w-4 h-4" />
-                  Knight
+                  骑士
                 </div>
               </SelectItem>
               <SelectItem value={ROLES.CIVILIAN}>
                 <div className="flex items-center gap-2">
                   <User2 className="w-4 h-4" />
-                  Civilian
+                  平民
                 </div>
               </SelectItem>
             </SelectContent>
@@ -157,10 +157,10 @@ export function PromotePanel() {
           {loading ? (
             <Loader2 className="w-4 h-4 animate-spin" />
           ) : (
-            `Set as ${roleNames[targetRole]}`
+            `设为${roleNames[targetRole]}`
           )}
         </Button>
       </div>
     </div>
   )
-}
+} 
