@@ -13,10 +13,10 @@ import { generateAvatarUrl } from "./avatar"
 import { getUserId } from "./apiKey"
 
 const ROLE_DESCRIPTIONS: Record<Role, string> = {
-  [ROLES.EMPEROR]: "皇帝（网站所有者）",
-  [ROLES.DUKE]: "公爵（超级用户）",
-  [ROLES.KNIGHT]: "骑士（高级用户）",
-  [ROLES.CIVILIAN]: "平民（普通用户）",
+  [ROLES.EMPEROR]: "皇帝（网站所有者）",         // Emperor (Site Owner)
+  [ROLES.DUKE]: "公爵（超级用户）",             // Duke (Super User)
+  [ROLES.KNIGHT]: "骑士（高级用户）",           // Knight (Advanced User)
+  [ROLES.CIVILIAN]: "平民（普通用户）",          // Civilian (Regular User)
 }
 
 const getDefaultRole = async (): Promise<Role> => {
@@ -105,12 +105,12 @@ export const {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        username: { label: "用户名", type: "text", placeholder: "请输入用户名" },
-        password: { label: "密码", type: "password", placeholder: "请输入密码" },
+        username: { label: "用户名", type: "text", placeholder: "请输入用户名" }, // Username / Please enter username
+        password: { label: "密码", type: "password", placeholder: "请输入密码" }, // Password / Please enter password
       },
       async authorize(credentials) {
         if (!credentials) {
-          throw new Error("请输入用户名和密码")
+          throw new Error("请输入用户名和密码") // Please enter username and password
         }
 
         const { username, password } = credentials
@@ -119,7 +119,7 @@ export const {
           authSchema.parse({ username, password })
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error) {
-          throw new Error("输入格式不正确")
+          throw new Error("输入格式不正确") // Input format is incorrect
         }
 
         const db = createDb()
@@ -129,12 +129,12 @@ export const {
         })
 
         if (!user) {
-          throw new Error("用户名或密码错误")
+          throw new Error("用户名或密码错误") // Incorrect username or password
         }
 
         const isValid = await comparePassword(password as string, user.password as string)
         if (!isValid) {
-          throw new Error("用户名或密码错误")
+          throw new Error("用户名或密码错误") // Incorrect username or password
         }
 
         return {
@@ -186,7 +186,7 @@ export const {
           where: eq(userRoles.userId, session.user.id),
           with: { role: true },
         })
-  
+
         if (!userRoleRecords.length) {
           const defaultRole = await getDefaultRole()
           const role = await findOrCreateRole(db, defaultRole)
@@ -198,7 +198,7 @@ export const {
             role: role
           }]
         }
-  
+
         session.user.roles = userRoleRecords.map(ur => ({
           name: ur.role.name,
         }))
@@ -220,7 +220,7 @@ export async function register(username: string, password: string) {
   })
 
   if (existing) {
-    throw new Error("用户名已存在")
+    throw new Error("用户名已存在") // Username already exists
   }
 
   const hashedPassword = await hashPassword(password)
