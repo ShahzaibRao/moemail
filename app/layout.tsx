@@ -1,6 +1,6 @@
 import { ThemeProvider } from "@/components/theme/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
-import { us } from "@/lib/utils"
+import { cn } from "@/lib/utils"
 import type { Metadata, Viewport } from "next"
 import { zpix } from "./fonts"
 import "./globals.css"
@@ -8,24 +8,23 @@ import { Providers } from "./providers"
 import { FloatMenu } from "@/components/float-menu"
 
 export const metadata: Metadata = {
-  title: "CrackOne - 萌萌哒临时邮箱服务",
-  description: "安全、快速、一次性的临时邮箱地址，保护您的隐私，远离垃圾邮件。支持即时收件，到期自动失效。",
+  title: "CrackOne - Cute Disposable Email Service",
+  description: "A secure, fast, and one-time-use temporary email address service that protects your privacy and keeps spam away. Supports instant inbox and automatic expiration.",
   keywords: [
-    "临时邮箱",
-    "一次性邮箱",
-    "匿名邮箱",
-    "隐私保护",
-    "垃圾邮件过滤",
-    "即时收件",
-    "自动过期",
-    "安全邮箱",
-    "注册验证",
-    "临时账号",
-    "萌系邮箱",
-    "电子邮件",
-    "隐私安全",
-    "邮件服务",
-    "MoeMail"
+    "temporary email",
+    "disposable email",
+    "anonymous email",
+    "privacy protection",
+    "spam filter",
+    "instant inbox",
+    "auto expiration",
+    "secure email",
+    "email verification",
+    "temporary account",
+    "cute email",
+    "email service",
+    "privacy safety",
+    "CrackOne Mail"
   ].join(", "),
   authors: [{ name: "SoftMoe Studio" }],
   creator: "SoftMoe Studio",
@@ -42,24 +41,24 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://mail.crackone.org/",
-    title: "CrackOne - 萌萌哒临时邮箱服务",
-    description: "安全、快速、一次性的临时邮箱地址，保护您的隐私，远离垃圾邮件。支持即时收件，到期自动失效。",
+    title: "CrackOne - Cute Disposable Email Service",
+    description: "A secure, fast, and one-time-use temporary email address service that protects your privacy and keeps spam away. Supports instant inbox and automatic expiration.",
     siteName: "CrackOne Mail",
   },
   twitter: {
     card: "summary_large_image",
-    title: "CrackOne - 萌萌哒临时邮箱服务",
-    description: "安全、快速、一次性的临时邮箱地址，保护您的隐私，远离垃圾邮件。支持即时收件，到期自动失效。",
+    title: "CrackOne - Cute Disposable Email Service",
+    description: "A secure, fast, and one-time-use temporary email address service that protects your privacy and keeps spam away. Supports instant inbox and automatic expiration.",
   },
-  manifest: '/manifest.json',
+  manifest: "/manifest.json",
   icons: [
-    { rel: 'apple-touch-icon', url: '/icons/icon-192x192.png' },
+    { rel: "apple-touch-icon", url: "/icons/icon-192x192.png" },
   ],
 }
 
 export const viewport: Viewport = {
-  themeColor: '#826DD9',
-  width: 'device-width',
+  themeColor: "#826DD9",
+  width: "device-width",
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
@@ -80,8 +79,8 @@ export default function RootLayout({
         <meta name="format-detection" content="telephone=no" />
         <meta name="mobile-web-app-capable" content="yes" />
       </head>
-      <body 
-        className={us(
+      <body
+        className={cn(
           zpix.variable,
           "font-zpix min-h-screen antialiased",
           "bg-background text-foreground",
