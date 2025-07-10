@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useCallback } from "react"
+import { useState } from "react"
 import { EmailList } from "./email-list"
 import { MessageListContainer } from "./message-list-container"
 import { MessageView } from "./message-view"
@@ -9,7 +9,6 @@ import { cn } from "@/lib/utils"
 import { useCopy } from "@/hooks/use-copy"
 import { useSendPermission } from "@/hooks/use-send-permission"
 import { Copy } from "lucide-react"
-import { useToast } from "@/components/ui/use-toast"
 
 interface Email {
   id: string
@@ -23,12 +22,12 @@ export function ThreeColumnLayout() {
   const [refreshTrigger, setRefreshTrigger] = useState(0)
   const { copyToClipboard } = useCopy()
   const { canSend: canSendEmails } = useSendPermission()
-  const { toast } = useToast()
 
   const columnClass = "border-2 border-primary/20 bg-background rounded-lg overflow-hidden flex flex-col"
   const headerClass = "p-2 border-b-2 border-primary/20 flex items-center justify-between shrink-0"
   const titleClass = "text-sm font-bold px-2 w-full overflow-hidden"
 
+  // Mobile view logic
   const getMobileView = () => {
     if (selectedMessageId) return "message"
     if (selectedEmail) return "emails"
@@ -38,27 +37,21 @@ export function ThreeColumnLayout() {
   const mobileView = getMobileView()
 
   const copyEmailAddress = () => {
-    if (selectedEmail?.address) {
-      copyToClipboard(selectedEmail.address)
-      toast({
-        title: "Copied",
-        description: `Copied email address: ${selectedEmail.address}`,
-      })
-    }
+    copyToClipboard(selectedEmail?.address || "")
   }
 
-  const handleMessageSelect = useCallback((messageId: string | null, messageType: 'received' | 'sent' = 'received') => {
+  const handleMessageSelect = (messageId: string | null, messageType: 'received' | 'sent' = 'received') => {
     setSelectedMessageId(messageId)
     setSelectedMessageType(messageType)
-  }, [])
+  }
 
-  const handleSendSuccess = useCallback(() => {
+  const handleSendSuccess = () => {
     setRefreshTrigger(prev => prev + 1)
-  }, [])
+  }
 
   return (
     <div className="pb-5 pt-20 h-full flex flex-col">
-      {/* Desktop 3-column layout */}
+      {/* Desktop three-column layout */}
       <div className="hidden lg:grid grid-cols-12 gap-4 h-full min-h-0">
         <div className={cn("col-span-3", columnClass)}>
           <div className={headerClass}>
@@ -82,8 +75,8 @@ export function ThreeColumnLayout() {
                 <div className="w-full flex justify-between items-center gap-2">
                   <div className="flex items-center gap-2">
                     <span className="truncate min-w-0">{selectedEmail.address}</span>
-                    <div className="shrink-0 cursor-pointer text-primary" onClick={copyEmailAddress} aria-label="Copy email address">
-                      <Copy className="w-4 h-4" />
+                    <div className="shrink-0 cursor-pointer text-primary" onClick={copyEmailAddress}>
+                      <Copy className="size-4" />
                     </div>
                   </div>
                   {selectedEmail && canSendEmails && (
@@ -114,7 +107,7 @@ export function ThreeColumnLayout() {
         <div className={cn("col-span-5", columnClass)}>
           <div className={headerClass}>
             <h2 className={titleClass}>
-              {selectedMessageId ? "Email Content" : "Select a message to view details"}
+              {selectedMessageId ? "Message Content" : "Select a message to view details"}
             </h2>
           </div>
           {selectedEmail && selectedMessageId && (
@@ -136,82 +129,3 @@ export function ThreeColumnLayout() {
           {mobileView === "list" && (
             <>
               <div className={headerClass}>
-                <h2 className={titleClass}>My Emails</h2>
-              </div>
-              <div className="flex-1 overflow-auto">
-                <EmailList
-                  onEmailSelect={(email) => {
-                    setSelectedEmail(email)
-                  }}
-                  selectedEmailId={selectedEmail?.id}
-                />
-              </div>
-            </>
-          )}
-
-          {mobileView === "emails" && selectedEmail && (
-            <div className="h-full flex flex-col">
-              <div className={cn(headerClass, "gap-2")}>
-                <button
-                  onClick={() => {
-                    setSelectedEmail(null)
-                  }}
-                  className="text-sm text-primary shrink-0"
-                  aria-label="Back to email list"
-                >
-                  ← Back to email list
-                </button>
-                <div className="flex-1 flex justify-between items-center gap-2 min-w-0">
-                  <div className="flex items-center gap-2">
-                    <span className="truncate min-w-0 flex-1 text-right">{selectedEmail.address}</span>
-                    <div className="shrink-0 cursor-pointer text-primary" onClick={copyEmailAddress} aria-label="Copy email address">
-                      <Copy className="w-4 h-4" />
-                    </div>
-                  </div>
-                  {canSendEmails && (
-                    <SendDialog 
-                      emailId={selectedEmail.id} 
-                      fromAddress={selectedEmail.address}
-                      onSendSuccess={handleSendSuccess}
-                    />
-                  )}
-                </div>
-              </div>
-              <div className="flex-1 overflow-auto">
-                <MessageListContainer
-                  email={selectedEmail}
-                  onMessageSelect={handleMessageSelect}
-                  selectedMessageId={selectedMessageId}
-                  refreshTrigger={refreshTrigger}
-                />
-              </div>
-            </div>
-          )}
-
-          {mobileView === "message" && selectedEmail && selectedMessageId && (
-            <div className="h-full flex flex-col">
-              <div className={headerClass}>
-                <button
-                  onClick={() => setSelectedMessageId(null)}
-                  className="text-sm text-primary"
-                  aria-label="Back to message list"
-                >
-                  ← Back to message list
-                </button>
-                <span className="text-sm font-medium">Email Content</span>
-              </div>
-              <div className="flex-1 overflow-auto">
-                <MessageView
-                  emailId={selectedEmail.id}
-                  messageId={selectedMessageId}
-                  messageType={selectedMessageType}
-                  onClose={() => setSelectedMessageId(null)}
-                />
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  )
-}
