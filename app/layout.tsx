@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    locale: "en_US",
+    locale: "zh_CN",
     url: "https://mail.crackone.org/",
     title: "CrackOne - Free Email",
     description: "Secure, fast, and disposable temporary email address to protect your privacy and keep spam away. Supports instant receiving and automatically expires after use",
@@ -71,12 +71,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="us" suppressHydrationWarning>
+    <html lang="zh" suppressHydrationWarning>
       <head>
         <meta name="application-name" content="CrackOne" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="crackOne" />
+        <meta name="apple-mobile-web-app-title" content="CrackOne" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="mobile-web-app-capable" content="yes" />
       </head>
