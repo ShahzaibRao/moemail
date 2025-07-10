@@ -47,14 +47,14 @@ export function ApiKeyPanel() {
   const fetchApiKeys = async () => {
     try {
       const res = await fetch("/api/api-keys")
-      if (!res.ok) throw new Error("获取 API Keys 失败")
+      if (!res.ok) throw new Error("Failed to obtain API Keys")
       const data = await res.json() as { apiKeys: ApiKey[] }
       setApiKeys(data.apiKeys)
     } catch (error) {
       console.error(error)
       toast({
-        title: "获取失败",
-        description: "获取 API Keys 列表失败",
+        title: "Acquisition failed",
+        description: "Failed to obtain API Keys list",
         variant: "destructive"
       })
     } finally {
@@ -81,15 +81,15 @@ export function ApiKeyPanel() {
         body: JSON.stringify({ name: newKeyName })
       })
 
-      if (!res.ok) throw new Error("创建 API Key 失败")
+      if (!res.ok) throw new Error("Failed to create API Key")
 
       const data = await res.json() as { key: string }
       setNewKey(data.key)
       fetchApiKeys()
     } catch (error) {
       toast({
-        title: "创建失败",
-        description: error instanceof Error ? error.message : "请稍后重试",
+        title: "Creation failed",
+        description: error instanceof Error ? error.message : "Please try again later",
         variant: "destructive"
       })
       setCreateDialogOpen(false)
@@ -112,7 +112,7 @@ export function ApiKeyPanel() {
         body: JSON.stringify({ enabled })
       })
 
-      if (!res.ok) throw new Error("更新失败")
+      if (!res.ok) throw new Error("Update failed")
 
       setApiKeys(keys =>
         keys.map(key =>
@@ -122,8 +122,8 @@ export function ApiKeyPanel() {
     } catch (error) {
       console.error(error)
       toast({
-        title: "更新失败",
-        description: "更新 API Key 状态失败",
+        title: "Update failed",
+        description: "Failed to update API Key status",
         variant: "destructive"
       })
     }
@@ -135,18 +135,18 @@ export function ApiKeyPanel() {
         method: "DELETE"
       })
 
-      if (!res.ok) throw new Error("删除失败")
+      if (!res.ok) throw new Error("Deletion failed")
 
       setApiKeys(keys => keys.filter(key => key.id !== id))
       toast({
-        title: "删除成功",
-        description: "API Key 已删除"
+        title: "Deletion successful",
+        description: "API Key deleted"
       })
     } catch (error) {
       console.error(error)
       toast({
-        title: "删除失败",
-        description: "删除 API Key 失败",
+        title: "Deletion failed",
+        description: "Failed to delete API Key",
         variant: "destructive"
       })
     }
@@ -165,7 +165,7 @@ export function ApiKeyPanel() {
               <DialogTrigger asChild>
                 <Button className="gap-2" onClick={() => setCreateDialogOpen(true)}>
                   <Plus className="w-4 h-4" />
-                  创建 API Key
+                  Create API Key
                 </Button>
               </DialogTrigger>
               <DialogContent>
@@ -175,7 +175,7 @@ export function ApiKeyPanel() {
                   </DialogTitle>
                   {newKey && (
                     <DialogDescription className="text-destructive">
-                      请立即保存此密钥，它只会显示一次且无法恢复
+                      Please save this key immediately; it will only be displayed once and cannot be recovered
                     </DialogDescription>
                   )}
                 </DialogHeader>
@@ -183,11 +183,11 @@ export function ApiKeyPanel() {
                 {!newKey ? (
                   <div className="space-y-4 py-4">
                     <div className="space-y-2">
-                      <Label>名称</Label>
+                      <Label>Name</Label>
                       <Input
                         value={newKeyName}
                         onChange={(e) => setNewKeyName(e.target.value)}
-                        placeholder="为你的 API Key 起个名字"
+                        placeholder="Give your API Key a name"
                       />
                     </div>
                   </div>
@@ -220,7 +220,7 @@ export function ApiKeyPanel() {
                       onClick={handleDialogClose}
                       disabled={loading}
                     >
-                      {newKey ? "完成" : "取消"}
+                      {newKey ? "Done" : "Cancel"}
                     </Button>
                   </DialogClose>
                   {!newKey && (
@@ -231,7 +231,7 @@ export function ApiKeyPanel() {
                       {loading ? (
                         <Loader2 className="w-4 h-4 animate-spin" />
                       ) : (
-                        "创建"
+                        "Create"
                       )}
                     </Button>
                   )}
@@ -245,11 +245,11 @@ export function ApiKeyPanel() {
       {
         !canManageApiKey ? (
           <div className="text-center text-muted-foreground py-8">
-            <p>需要公爵或更高权限才能管理 API Key</p>
-            <p className="mt-2">请联系网站管理员升级您的角色</p>
+            <p>Duke or higher permissions are required to manage API Keys.</p>
+            <p className="mt-2">Please contact the site administrator to upgrade your role</p>
             {
               config?.adminContact && (
-                <p className="mt-2">管理员联系方式：{config.adminContact}</p>
+                <p className="mt-2">Administrator Contact：{config.adminContact}</p>
               )
             }
           </div>
@@ -261,7 +261,7 @@ export function ApiKeyPanel() {
                   <Loader2 className="w-6 h-6 text-primary animate-spin" />
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">加载中...</p>
+                  <p className="text-sm text-muted-foreground">Loading...</p>
                 </div>
               </div>
             ) : apiKeys.length === 0 ? (
@@ -272,7 +272,7 @@ export function ApiKeyPanel() {
                 <div>
                   <h3 className="text-lg font-medium">没有 API Keys</h3>
                   <p className="text-sm text-muted-foreground mt-1">
-                    点击上方的创建 &quot;API Key&quot; 按钮来创建你的第一个 API Key
+                    Click the 'Create' button above &quot;API Key&quot; Use the button to create your first one API Key
                   </p>
                 </div>
               </div>
@@ -286,7 +286,7 @@ export function ApiKeyPanel() {
                     <div className="space-y-1">
                       <div className="font-medium">{key.name}</div>
                       <div className="text-sm text-muted-foreground">
-                        创建于 {new Date(key.createdAt).toLocaleString()}
+                        Created on" {new Date(key.createdAt).toLocaleString()}
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
@@ -312,14 +312,14 @@ export function ApiKeyPanel() {
                     onClick={() => setShowExamples(!showExamples)}
                   >
                     {showExamples ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-                    查看使用文档
+                    View the documentation"
                   </button>
 
                   {showExamples && (
                     <div className="rounded-lg border bg-card p-4 space-y-4">
                       <div className="space-y-2">
                         <div className="flex items-center justify-between">
-                          <div className="text-sm font-medium">获取系统配置</div>
+                          <div className="text-sm font-medium">Get system configuration</div>
                           <Button
                             variant="ghost"
                             size="icon"
@@ -339,7 +339,7 @@ export function ApiKeyPanel() {
 
                       <div className="space-y-2">
                         <div className="flex items-center justify-between">
-                          <div className="text-sm font-medium">生成临时邮箱</div>
+                          <div className="text-sm font-medium">Generate  email</div>
                           <Button
                             variant="ghost"
                             size="icon"
@@ -371,7 +371,7 @@ export function ApiKeyPanel() {
 
                       <div className="space-y-2">
                         <div className="flex items-center justify-between">
-                          <div className="text-sm font-medium">获取邮箱列表</div>
+                          <div className="text-sm font-medium">Get email list</div>
                           <Button
                             variant="ghost"
                             size="icon"
@@ -391,7 +391,7 @@ export function ApiKeyPanel() {
 
                       <div className="space-y-2">
                         <div className="flex items-center justify-between">
-                          <div className="text-sm font-medium">获取邮件列表</div>
+                          <div className="text-sm font-medium">Get email list</div>
                           <Button
                             variant="ghost"
                             size="icon"
@@ -411,7 +411,7 @@ export function ApiKeyPanel() {
 
                       <div className="space-y-2">
                         <div className="flex items-center justify-between">
-                          <div className="text-sm font-medium">获取单封邮件</div>
+                          <div className="text-sm font-medium">Get a single email</div>
                           <Button
                             variant="ghost"
                             size="icon"
@@ -430,16 +430,16 @@ export function ApiKeyPanel() {
                       </div>
 
                       <div className="text-xs text-muted-foreground mt-4">
-                        <p>注意：</p>
+                        <p>Attention：</p>
                         <ul className="list-disc list-inside space-y-1 mt-2">
-                          <li>请将 YOUR_API_KEY 替换为你的实际 API Key</li>
-                          <li>/api/config 接口可获取系统配置，包括可用的邮箱域名列表</li>
-                          <li>emailId 是邮箱的唯一标识符</li>
-                          <li>messageId 是邮件的唯一标识符</li>
-                          <li>expiryTime 是邮箱的有效期（毫秒），可选值：3600000（1小时）、86400000（1天）、604800000（7天）、0（永久）</li>
-                          <li>domain 是邮箱域名，可通过 /api/config 接口获取可用域名列表</li>
-                          <li>cursor 用于分页，从上一次请求的响应中获取 nextCursor</li>
-                          <li>所有请求都需要包含 X-API-Key 请求头</li>
+                          <li>Please replace YOUR_API_KEY with your actual API Key.</li>
+                          <li>The /api/config endpoint can be used to get the system configuration, including the list of available email domains.</li>
+                          <li>emailId is the unique identifier of the mailbox.</li>
+                          <li>messageId is the unique identifier of the email message.</li>
+                          <li>expiryTime is the mailbox expiration time (in milliseconds). Optional values: 3600000 (1 hour), 86400000 (1 day), 604800000 (7 days), 0 (permanent).</li>
+                          <li>domain is the email domain, which can be obtained from the /api/config endpoint.</li>
+                          <li>cursor is used for pagination, obtained from nextCursor in the previous response.</li>
+                          <li>All requests must include the X-API-Key header.</li>
                         </ul>
                       </div>
                     </div>
