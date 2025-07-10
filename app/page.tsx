@@ -21,29 +21,29 @@ export default async function Home() {
               <div className="space-y-4">
                 <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-wider">
                   <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-600">
-                    MoeMail
+                    CrackOne Mail
                   </span>
                 </h1>
                 <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 tracking-wide">
-                  萌萌哒临时邮箱服务
+                  Adorable Temporary Email Service
                 </p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-4 sm:px-0">
                 <FeatureCard
                   icon={<Shield className="w-5 h-5" />}
-                  title="隐私保护"
-                  description="保护您的真实邮箱地址"
+                  title="Privacy Protection"
+                  description="Protect your real email address"
                 />
                 <FeatureCard
                   icon={<Mail className="w-5 h-5" />}
-                  title="即时收件"
-                  description="实时接收邮件通知"
+                  title="Real-Time Mail"
+                  description="Receive email notifications in real time"
                 />
                 <FeatureCard
                   icon={<Clock className="w-5 h-5" />}
-                  title="自动过期"
-                  description="到期自动失效"
+                  title="Automatic Expiration"
+                  description="Automatically deactivates upon expiry"
                 />
               </div>
 
