@@ -81,7 +81,7 @@ export default function RootLayout({
         <meta name="mobile-web-app-capable" content="yes" />
       </head>
       <body 
-        className={cn(
+        className={us(
           zpix.variable,
           "font-zpix min-h-screen antialiased",
           "bg-background text-foreground",
