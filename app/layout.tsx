@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    locale: "zh_CN",
+    locale: "en_US",
     url: "https://mail.crackone.org/",
     title: "CrackOne - Free Email",
     description: "Secure, fast, and disposable temporary email address to protect your privacy and keep spam away. Supports instant receiving and automatically expires after use",
